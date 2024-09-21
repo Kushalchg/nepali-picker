@@ -1,21 +1,22 @@
-import { useState, useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply, add, BsToAd } from 'react-native-rn-nepali-calendar-picker';
-import { RandCom } from 'react-native-rn-nepali-calendar-picker';
+import { useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { BsToAd } from 'react-native-rn-nepali-calendar-picker';
+import { CalendarPicker } from 'react-native-rn-nepali-calendar-picker';
 
 export default function App() {
-  const [result, setResult] = useState<number | undefined>();
-
-  useEffect(() => {
-    multiply(3, 7).then(setResult);
-    add(3, 7);
-  }, []);
+  const [visible, setVisible] = useState<boolean>(true);
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
-      <Text>{BsToAd('3085-09-12')}</Text>
-      <RandCom />
+      <View>
+        <CalendarPicker visible={visible} onClose={() => setVisible(false)} />
+      </View>
+      <TouchableOpacity style={styles.button} onPress={() => setVisible(true)}>
+        <Text style={styles.text}>Open Calendar</Text>
+      </TouchableOpacity>
+      <View>
+        <Text>{BsToAd('3085-09-12')}</Text>
+      </View>
     </View>
   );
 }
@@ -25,6 +26,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  button: {
+    paddingHorizontal: 10,
+    paddingVertical: 20,
+    borderRadius: 5,
+    backgroundColor: '#fe6684',
+    marginBottom: 10,
+  },
+
+  text: {
+    color: '#000',
+    fontSize: 20,
   },
   box: {
     width: 60,
