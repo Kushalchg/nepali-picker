@@ -4,18 +4,31 @@ import { BsToAd } from 'react-native-rn-nepali-calendar-picker';
 import { CalendarPicker } from 'react-native-rn-nepali-calendar-picker';
 
 export default function App() {
-  const [visible, setVisible] = useState<boolean>(true);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [date, setDate] = useState<string>();
+
+  const onPicked = (date: string) => {
+    setDate(date);
+  };
 
   return (
     <View style={styles.container}>
       <View>
-        <CalendarPicker visible={visible} onClose={() => setVisible(false)} />
+        <CalendarPicker
+          visible={visible}
+          onClose={() => setVisible(false)}
+          onDateSelect={onPicked}
+          theme="light"
+        />
       </View>
       <TouchableOpacity style={styles.button} onPress={() => setVisible(true)}>
         <Text style={styles.text}>Open Calendar</Text>
       </TouchableOpacity>
       <View>
         <Text>{BsToAd('3085-09-12')}</Text>
+      </View>
+      <View>
+        <Text>{date}</Text>
       </View>
     </View>
   );
