@@ -10,19 +10,21 @@ import {
 import { bs, daysInNepali, monthsInNepali } from './calendar/config';
 import { calcFirstDay } from './calendar/settings';
 import { NepaliToday } from './calendar/functions';
+import { ChevronIcon, DropdownIcon, EditPencilIcon } from './assets/Icons';
+import PencilIcon from './assets/cIcon';
 
 interface CalendarPickerPoros {
   visible: boolean;
   children?: ReactNode;
   onClose: () => void;
-  theme: 'dark' | 'light';
+  theme?: 'dark' | 'light';
   onDateSelect: (date: string) => void;
 }
 
 const CalendarPicker = ({
   visible,
   onClose,
-  theme,
+  theme = 'light',
   onDateSelect,
 }: CalendarPickerPoros) => {
   const TodayNepaliDate = NepaliToday();
@@ -33,7 +35,7 @@ const CalendarPicker = ({
   const [calendarDate, setCalendarDate] = useState<(number | null)[]>([]);
 
   const handleDateClick = (day: number) => {
-    const date = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    const date = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     onDateSelect(date);
     onClose();
   };
@@ -82,43 +84,39 @@ const CalendarPicker = ({
           <View
             style={{
               ...styles.innerView,
-              backgroundColor: theme == 'dark' ? '#383838' : '#fff',
+              backgroundColor: theme === 'dark' ? '#383838' : '#fff',
             }}
           >
             {/* contrls for date */}
             <View>
-              <Text>{monthsInNepali[month]}</Text>
-              <Text>{year}</Text>
+              <EditPencilIcon />
+              <DropdownIcon />
+              <PencilIcon />
             </View>
 
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
-            >
+            <View style={styles.ButtonContainer}>
               <TouchableOpacity
                 style={styles.CButton}
                 onPress={handlePreviousClick}
               >
-                <Text>Previous</Text>
+                <ChevronIcon direction="right" />
               </TouchableOpacity>
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={{ ...styles.TitleText, marginRight: 6 }}>
+                  {monthsInNepali[month]}
+                </Text>
+                <Text style={styles.TitleText}>{year}</Text>
+              </View>
               <TouchableOpacity
                 style={styles.CButton}
                 onPress={handleNextClick}
               >
-                <Text>Next</Text>
+                <ChevronIcon direction="left" />
               </TouchableOpacity>
             </View>
 
             {/* Actual date container*/}
-            <View
-              style={{
-                paddingHorizontal: 3,
-                justifyContent: 'center',
-              }}
-            >
+            <View style={styles.outerDateConainer}>
               {/* for header of calendar */}
               <View style={styles.weekContainer}>
                 {daysInNepali.map((item, index) => {
@@ -223,8 +221,19 @@ const styles = StyleSheet.create({
   },
   CButton: {
     paddingHorizontal: 10,
-    paddingVertical: 4,
-    backgroundColor: '#5121e1',
+  },
+  ButtonContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  outerDateConainer: {
+    paddingHorizontal: 3,
+    justifyContent: 'center',
+  },
+  TitleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 export default CalendarPicker;
