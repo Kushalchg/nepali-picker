@@ -106,64 +106,69 @@ const CalendarPicker = ({
                 <PencilIcon height={24} width={9} />
               </View>
             </View>
-            {/* for button container */}
-            <View style={styles.ButtonContainer}>
-              <TouchableOpacity
-                style={styles.CButton}
-                onPress={handlePreviousClick}
-              >
-                <ChevronIcon direction="right" />
-              </TouchableOpacity>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={{ ...styles.TitleText, marginRight: 6 }}>
-                  {monthsInNepali[month - 1]}
-                </Text>
-                <Text style={styles.TitleText}>{year}</Text>
-              </View>
-              <TouchableOpacity
-                style={styles.CButton}
-                onPress={handleNextClick}
-              >
-                <ChevronIcon direction="left" />
-              </TouchableOpacity>
-            </View>
 
-            {/* Actual date container*/}
-            <View style={styles.outerDateConainer}>
-              {/* for header of calendar */}
-              <View style={styles.weekContainer}>
-                {daysInNepali.map((item, index) => {
-                  return (
-                    <View style={styles.WeekItem} key={index}>
-                      <Text style={styles.WeekText}>{item}</Text>
-                    </View>
-                  );
-                })}
+            <View style={{ justifyContent: 'space-evenly' }}>
+              {/* for button container */}
+              <View style={styles.ButtonContainer}>
+                <TouchableOpacity
+                  style={styles.CButton}
+                  onPress={handlePreviousClick}
+                >
+                  <ChevronIcon direction="right" />
+                </TouchableOpacity>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text style={{ ...styles.TitleText, marginRight: 6 }}>
+                    {monthsInNepali[month - 1]}
+                  </Text>
+                  <Text style={styles.TitleText}>{year}</Text>
+                </View>
+                <TouchableOpacity
+                  style={styles.CButton}
+                  onPress={handleNextClick}
+                >
+                  <ChevronIcon direction="left" />
+                </TouchableOpacity>
               </View>
-              {/* for actual data fo calenadr */}
 
-              <View style={styles.datesContainer}>
-                {calendarDate.map((dayItem, index) => {
-                  return (
-                    <TouchableOpacity
-                      style={styles.dateItem}
-                      key={index}
-                      onPress={
-                        dayItem ? () => handleDateClick(dayItem) : () => {}
-                      }
-                    >
-                      {dayItem ? (
-                        <View>
-                          <View>
-                            <View>
-                              <Text>{dayItem}</Text>
-                            </View>
+              {/* Actual date container*/}
+              <View style={styles.outerDateConainer}>
+                {/* for header of calendar */}
+                <View style={styles.weekContainer}>
+                  {daysInNepali.map((item, index) => {
+                    return (
+                      <View style={styles.WeekItem} key={index}>
+                        <Text style={styles.WeekText}>{item}</Text>
+                      </View>
+                    );
+                  })}
+                </View>
+                {/* for actual data fo calenadr */}
+
+                <View style={styles.datesContainer}>
+                  {calendarDate.map((dayItem, index) => {
+                    return (
+                      <TouchableOpacity
+                        style={styles.dateItem}
+                        key={index}
+                        onPress={
+                          dayItem ? () => handleDateClick(dayItem) : () => {}
+                        }
+                      >
+                        {dayItem ? (
+                          <View
+                            style={{
+                              backgroundColor: '#6969',
+                              padding: 6,
+                              borderRadius: 12,
+                            }}
+                          >
+                            <Text>{dayItem}</Text>
                           </View>
-                        </View>
-                      ) : null}
-                    </TouchableOpacity>
-                  );
-                })}
+                        ) : null}
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
               </View>
             </View>
           </View>
@@ -181,7 +186,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.54)',
   },
   innerPressable: {
-    height: '60%',
+    height: '50%',
     marginHorizontal: 30,
   },
   innerView: {
@@ -201,9 +206,9 @@ const styles = StyleSheet.create({
     width: '14.28%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 0.3,
-    borderColor: 'gray',
-    paddingVertical: 20,
+    // borderWidth: 0.3,
+    // borderColor: 'gray',
+    paddingVertical: 18,
   },
   WeekText: {
     fontWeight: 'bold',
@@ -215,31 +220,34 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'flex-end',
+    alignItems: 'center',
     width: '100%',
   },
   dateItem: {
     overflow: 'scroll',
     width: '14.28%',
     height: '10.28%',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 0.3,
     borderColor: 'gray',
-    paddingVertical: 20,
+    paddingVertical: 18,
   },
   DayText: {
     fontWeight: 'bold',
+    justifyContent: 'center',
     alignItems: 'center',
     fontSize: 14,
     color: 'black',
   },
   CButton: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   ButtonContainer: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   outerDateConainer: {
     paddingHorizontal: 3,
