@@ -10,7 +10,7 @@ import {
 import { bs, daysInNepali, monthsInNepali } from './calendar/config';
 import { calcFirstDay } from './calendar/settings';
 import { NepaliToday } from './calendar/functions';
-import { ChevronIcon, DropdownIcon, EditPencilIcon } from './assets/Icons';
+import { ChevronIcon } from './assets/Icons';
 import PencilIcon from './assets/cIcon';
 
 interface CalendarPickerPoros {
@@ -30,31 +30,33 @@ const CalendarPicker = ({
   const TodayNepaliDate = NepaliToday();
   const cYear = parseInt(TodayNepaliDate.split('-')[0], 10);
   const cMonth = parseInt(TodayNepaliDate.split('-')[1], 10);
+  const cDay = parseInt(TodayNepaliDate.split('-')[2], 10);
+
   const [month, setMonth] = useState<number>(cMonth);
   const [year, setYear] = useState<number>(cYear);
   const [calendarDate, setCalendarDate] = useState<(number | null)[]>([]);
 
   const handleDateClick = (day: number) => {
-    const date = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    const date = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     onDateSelect(date);
     onClose();
   };
 
   const handleNextClick = () => {
-    if (month === 11) {
+    if (month === 12) {
       if (year < 2099) {
         setYear((prev) => prev + 1);
-        setMonth(0);
+        setMonth(1);
       }
     } else {
       setMonth((prev) => prev + 1);
     }
   };
   const handlePreviousClick = () => {
-    if (month === 0) {
+    if (month === 1) {
       if (year > 2081) {
         setYear((prev) => prev - 1);
-        setMonth(11);
+        setMonth(12);
       }
     } else {
       setMonth((prev) => prev - 1);
@@ -63,8 +65,8 @@ const CalendarPicker = ({
 
   useEffect(() => {
     // calculate First Day Of Month (FDOM) and Days In Month(DIM)
-    const FDOM = calcFirstDay(year, month + 1);
-    const DIM = bs[year][month + 1];
+    const FDOM = calcFirstDay(year, month);
+    const DIM = bs[year][month];
 
     // array which contain 42 cells and it only fill the date with number if the date is present otherwise it fill cells with null.
     const calendarCells = Array.from({ length: 42 }, (_, index) => {
@@ -87,13 +89,24 @@ const CalendarPicker = ({
               backgroundColor: theme === 'dark' ? '#383838' : '#fff',
             }}
           >
-            {/* contrls for date */}
-            <View>
-              <EditPencilIcon />
-              <DropdownIcon />
-              <PencilIcon />
+            {/*Date in Large font contrls for date */}
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+            >
+              <View>
+                <Text style={{ ...styles.TitleText, fontSize: 30 }}>
+                  {cYear} {monthsInNepali[cMonth - 1]} {cDay}
+                </Text>
+              </View>
+              <View>
+                <PencilIcon height={24} width={9} />
+              </View>
             </View>
-
+            {/* for button container */}
             <View style={styles.ButtonContainer}>
               <TouchableOpacity
                 style={styles.CButton}
@@ -103,7 +116,7 @@ const CalendarPicker = ({
               </TouchableOpacity>
               <View style={{ flexDirection: 'row' }}>
                 <Text style={{ ...styles.TitleText, marginRight: 6 }}>
-                  {monthsInNepali[month]}
+                  {monthsInNepali[month - 1]}
                 </Text>
                 <Text style={styles.TitleText}>{year}</Text>
               </View>
@@ -201,13 +214,14 @@ const styles = StyleSheet.create({
   datesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    justifyContent: 'flex-end',
     width: '100%',
   },
   dateItem: {
     overflow: 'scroll',
     width: '14.28%',
     height: '10.28%',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     borderWidth: 0.3,
     borderColor: 'gray',
@@ -229,7 +243,7 @@ const styles = StyleSheet.create({
   },
   outerDateConainer: {
     paddingHorizontal: 3,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
   TitleText: {
     fontSize: 20,
