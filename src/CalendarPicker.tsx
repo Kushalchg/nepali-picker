@@ -27,15 +27,16 @@ interface CalendarPickerPoros {
   theme?: 'dark' | 'light';
   onDateSelect: (date: string) => void;
   language?: 'en' | 'np';
-  brandCOlor: string;
+  brandColor?: string;
 }
 
 const CalendarPicker = ({
   visible,
   onClose,
-  theme = 'light',
+  theme = 'dark',
   onDateSelect,
-  language = 'en',
+  language = 'np',
+  brandColor = '#2081b9',
 }: CalendarPickerPoros) => {
   const TodayNepaliDate = NepaliToday();
   const cYear = parseInt(TodayNepaliDate.split('-')[0], 10);
@@ -96,6 +97,7 @@ const CalendarPicker = ({
     setMonth(cMonth);
     setYear(cYear);
   };
+  const dark = theme === 'dark';
   const weekDays = language === 'en' ? daysInEnglish : daysInNepali;
 
   return (
@@ -105,7 +107,7 @@ const CalendarPicker = ({
           <View
             style={{
               ...styles.innerView,
-              backgroundColor: theme === 'dark' ? '#383838' : '#ffffff',
+              backgroundColor: dark ? '#383838' : '#ffffff',
             }}
           >
             {/*Date in Large font contrls for date */}
@@ -120,22 +122,36 @@ const CalendarPicker = ({
               }}
             >
               <View>
-                <Text>Today Date</Text>
+                <Text style={{ color: dark ? 'white' : 'black' }}>
+                  Today Date
+                </Text>
 
                 {language == 'np' ? (
-                  <Text style={{ ...styles.TitleText, fontSize: 27 }}>
+                  <Text
+                    style={{
+                      ...styles.TitleText,
+                      fontSize: 27,
+                      color: dark ? '#fff' : '#000',
+                    }}
+                  >
                     {getNepaliNumber(cYear)} {monthsInNepali[cMonth - 1]}
                     {'  '} {getNepaliNumber(cDay)}
                   </Text>
                 ) : (
-                  <Text style={{ ...styles.TitleText, fontSize: 27 }}>
+                  <Text
+                    style={{
+                      ...styles.TitleText,
+                      fontSize: 27,
+                      color: dark ? '#fff' : '#000',
+                    }}
+                  >
                     {cYear} {monthsInEnglish[cMonth - 1]}
                     {'  '} {cDay}
                   </Text>
                 )}
               </View>
               <TouchableOpacity onPress={syncToday}>
-                <DateSyncLogo day={cDay} />
+                <DateSyncLogo day={cDay} color={'#ffff'} />
               </TouchableOpacity>
             </View>
 
@@ -146,15 +162,29 @@ const CalendarPicker = ({
                   style={styles.CButton}
                   onPress={handlePreviousClick}
                 >
-                  <ChevronIcon direction="right" />
+                  <ChevronIcon
+                    direction="right"
+                    color={dark ? 'white' : 'black'}
+                  />
                 </TouchableOpacity>
                 <View style={{ flexDirection: 'row' }}>
-                  <Text style={{ ...styles.TitleText, marginRight: 6 }}>
+                  <Text
+                    style={{
+                      ...styles.TitleText,
+                      marginRight: 6,
+                      color: dark ? 'white' : 'black',
+                    }}
+                  >
                     {language == 'np'
                       ? monthsInNepali[month - 1]
                       : monthsInEnglish[month - 1]}
                   </Text>
-                  <Text style={styles.TitleText}>
+                  <Text
+                    style={{
+                      ...styles.TitleText,
+                      color: dark ? 'white' : 'black',
+                    }}
+                  >
                     {language == 'np' ? getNepaliNumber(year) : year}
                   </Text>
                 </View>
@@ -162,7 +192,10 @@ const CalendarPicker = ({
                   style={styles.CButton}
                   onPress={handleNextClick}
                 >
-                  <ChevronIcon direction="left" />
+                  <ChevronIcon
+                    direction="left"
+                    color={dark ? 'white' : 'black'}
+                  />
                 </TouchableOpacity>
               </View>
 
@@ -173,7 +206,14 @@ const CalendarPicker = ({
                   {weekDays.map((item, index) => {
                     return (
                       <View style={styles.WeekItem} key={index}>
-                        <Text style={styles.WeekText}>{item}</Text>
+                        <Text
+                          style={{
+                            ...styles.WeekText,
+                            color: dark ? 'white' : 'black',
+                          }}
+                        >
+                          {item}
+                        </Text>
                       </View>
                     );
                   })}
@@ -203,13 +243,28 @@ const CalendarPicker = ({
                                 month,
                                 firstDayOfMonth
                               )
-                                ? '#696969'
-                                : theme === 'dark'
-                                  ? '#282828'
+                                ? brandColor
+                                : dark
+                                  ? '#383838'
                                   : '#fff',
                             }}
                           >
-                            <Text style={styles.DayText}>
+                            <Text
+                              style={{
+                                ...styles.DayText,
+                                color: isToday(
+                                  TodayNepaliDate,
+                                  index,
+                                  year,
+                                  month,
+                                  firstDayOfMonth
+                                )
+                                  ? '#fff'
+                                  : dark
+                                    ? 'white'
+                                    : 'black',
+                              }}
+                            >
                               {language === 'np'
                                 ? getNepaliNumber(dayItem)
                                 : dayItem}
@@ -242,6 +297,7 @@ const styles = StyleSheet.create({
   },
   innerView: {
     borderRadius: 20,
+    backgroundColor: '#f2f2f2',
     padding: 10,
   },
 

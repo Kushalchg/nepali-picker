@@ -17,7 +17,7 @@ export default function App() {
           visible={visible}
           onClose={() => setVisible(false)}
           onDateSelect={onPicked}
-          brandCOlor={''}
+          brandColor="#287bc9"
         />
       </View>
       <TouchableOpacity style={styles.button} onPress={() => setVisible(true)}>
