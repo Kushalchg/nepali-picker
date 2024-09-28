@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 
-const PencilIcon = ({ height = 30, width = 10 }) => {
+const PencilIcon = ({ height = 20, width = 10 }) => {
   return (
     <View style={{ ...styles.container, height: height, width: width }}>
       {/* Eraser */}
@@ -39,10 +39,25 @@ const PencilIcon = ({ height = 30, width = 10 }) => {
           }}
         />
       </View>
-      {/* tip of pencil
-      <View>
-        <View style={styles.triangle} />
+      {/* tip of pencil */}
+      {/* <View style={{ height: '30%', width: '100%', backgroundColor: '#000' }}>
+        <View />
       </View> */}
+      <View
+        style={{
+          width: 0,
+          height: 0,
+          borderLeftWidth: 4,
+          borderRightWidth: 4,
+          borderBottomWidth: 0,
+          borderStyle: 'solid',
+          backgroundColor: 'transparent',
+          borderLeftColor: 'transparent',
+          borderRightColor: 'transparent',
+          borderBottomColor: 'transparent',
+          borderTopWidth: 8,
+        }}
+      />
     </View>
   );
 };
@@ -53,49 +68,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 'auto',
     justifyContent: 'center',
-  },
-  // Eraser part of the pencil
-  eraserContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  eraser: {
-    width: 12,
-    height: '90%',
-    backgroundColor: '#FF7F50', // Eraser color
-    borderTopLeftRadius: 5,
-    borderBottomLeftRadius: 5,
-  },
-  eraserTop: {
-    width: 5,
-    height: '90%',
-    backgroundColor: '#D3D3D3', // Metal holding the eraser
-  },
-  // Pencil body
-
-  // Tip of the pencil
-  tipContainer: {
-    width: 0,
-    height: 0,
-    borderLeftWidth: 15,
-    borderLeftColor: 'transparent',
-    borderRightWidth: 15,
-    borderRightColor: 'transparent',
-    borderBottomWidth: 25,
-    borderBottomColor: '#FFD700', // Yellow continues to the tip
-    position: 'relative',
-  },
-  triangle: {
-    width: 0,
-    height: 0,
-    backgroundColor: '#000',
-    borderStyle: 'solid',
-    borderLeftWidth: 8,
-    borderRightWidth: 8,
-    borderBottomWidth: 0,
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderTopWidth: 12,
   },
 });
 

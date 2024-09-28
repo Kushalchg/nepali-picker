@@ -7,11 +7,18 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { bs, daysInNepali, monthsInNepali } from './calendar/config';
+import {
+  bs,
+  daysInEnglish,
+  daysInNepali,
+  getNepaliNumber,
+  monthsInEnglish,
+  monthsInNepali,
+} from './calendar/config';
 import { calcFirstDay, isToday } from './calendar/settings';
 import { NepaliToday } from './calendar/functions';
 import { ChevronIcon } from './assets/Icons';
-import PencilIcon from './assets/cIcon';
+import DateSyncLogo from './assets/DateSync';
 
 interface CalendarPickerPoros {
   visible: boolean;
@@ -19,6 +26,8 @@ interface CalendarPickerPoros {
   onClose: () => void;
   theme?: 'dark' | 'light';
   onDateSelect: (date: string) => void;
+  language?: 'en' | 'np';
+  brandCOlor: string;
 }
 
 const CalendarPicker = ({
@@ -26,6 +35,7 @@ const CalendarPicker = ({
   onClose,
   theme = 'light',
   onDateSelect,
+  language = 'en',
 }: CalendarPickerPoros) => {
   const TodayNepaliDate = NepaliToday();
   const cYear = parseInt(TodayNepaliDate.split('-')[0], 10);
@@ -82,6 +92,12 @@ const CalendarPicker = ({
     setCalendarDate(calendarCells);
   }, [year, month]);
 
+  const syncToday = () => {
+    setMonth(cMonth);
+    setYear(cYear);
+  };
+  const weekDays = language === 'en' ? daysInEnglish : daysInNepali;
+
   return (
     <Modal visible={visible}>
       <Pressable style={styles.outerPressable} onPress={onClose}>
@@ -89,7 +105,7 @@ const CalendarPicker = ({
           <View
             style={{
               ...styles.innerView,
-              backgroundColor: theme === 'dark' ? '#383838' : '#fff',
+              backgroundColor: theme === 'dark' ? '#383838' : '#ffffff',
             }}
           >
             {/*Date in Large font contrls for date */}
@@ -98,19 +114,32 @@ const CalendarPicker = ({
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
+                paddingHorizontal: 10,
+                alignItems: 'center',
+                marginBottom: 20,
               }}
             >
               <View>
-                <Text style={{ ...styles.TitleText, fontSize: 30 }}>
-                  {cYear} {monthsInNepali[cMonth - 1]} {cDay}
-                </Text>
+                <Text>Today Date</Text>
+
+                {language == 'np' ? (
+                  <Text style={{ ...styles.TitleText, fontSize: 27 }}>
+                    {getNepaliNumber(cYear)} {monthsInNepali[cMonth - 1]}
+                    {'  '} {getNepaliNumber(cDay)}
+                  </Text>
+                ) : (
+                  <Text style={{ ...styles.TitleText, fontSize: 27 }}>
+                    {cYear} {monthsInEnglish[cMonth - 1]}
+                    {'  '} {cDay}
+                  </Text>
+                )}
               </View>
-              <View>
-                <PencilIcon height={24} width={9} />
-              </View>
+              <TouchableOpacity onPress={syncToday}>
+                <DateSyncLogo day={cDay} />
+              </TouchableOpacity>
             </View>
 
-            <View style={{ justifyContent: 'space-evenly' }}>
+            <View style={{}}>
               {/* for button container */}
               <View style={styles.ButtonContainer}>
                 <TouchableOpacity
@@ -121,9 +150,13 @@ const CalendarPicker = ({
                 </TouchableOpacity>
                 <View style={{ flexDirection: 'row' }}>
                   <Text style={{ ...styles.TitleText, marginRight: 6 }}>
-                    {monthsInNepali[month - 1]}
+                    {language == 'np'
+                      ? monthsInNepali[month - 1]
+                      : monthsInEnglish[month - 1]}
                   </Text>
-                  <Text style={styles.TitleText}>{year}</Text>
+                  <Text style={styles.TitleText}>
+                    {language == 'np' ? getNepaliNumber(year) : year}
+                  </Text>
                 </View>
                 <TouchableOpacity
                   style={styles.CButton}
@@ -137,7 +170,7 @@ const CalendarPicker = ({
               <View style={styles.outerDateConainer}>
                 {/* for header of calendar */}
                 <View style={styles.weekContainer}>
-                  {daysInNepali.map((item, index) => {
+                  {weekDays.map((item, index) => {
                     return (
                       <View style={styles.WeekItem} key={index}>
                         <Text style={styles.WeekText}>{item}</Text>
@@ -176,7 +209,11 @@ const CalendarPicker = ({
                                   : '#fff',
                             }}
                           >
-                            <Text>{dayItem}</Text>
+                            <Text style={styles.DayText}>
+                              {language === 'np'
+                                ? getNepaliNumber(dayItem)
+                                : dayItem}
+                            </Text>
                           </View>
                         ) : null}
                       </TouchableOpacity>
@@ -200,59 +237,42 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.54)',
   },
   innerPressable: {
-    height: '50%',
+    minHeight: '50%',
     marginHorizontal: 30,
   },
   innerView: {
-    justifyContent: 'space-between',
-    height: '100%',
     borderRadius: 20,
     padding: 10,
-    backgroundColor: '#F2F2F2',
   },
 
   weekContainer: {
     flexDirection: 'row',
     width: '100%',
-    justifyContent: 'space-between',
   },
   WeekItem: {
     width: '14.28%',
-    justifyContent: 'center',
     alignItems: 'center',
-    // borderWidth: 0.3,
-    // borderColor: 'gray',
     paddingVertical: 18,
   },
   WeekText: {
     fontWeight: 'bold',
-    alignItems: 'center',
     fontSize: 14,
     color: 'black',
   },
   datesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    width: '100%',
   },
   dateItem: {
-    overflow: 'scroll',
+    overflow: 'hidden',
     width: '14.28%',
-    height: '10.28%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 0.3,
-    borderColor: 'gray',
-    paddingVertical: 18,
+    paddingVertical: 10,
   },
   DayText: {
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    alignItems: 'center',
     fontSize: 14,
-    color: 'black',
+    fontWeight: '600',
   },
   CButton: {
     paddingHorizontal: 20,
@@ -261,11 +281,11 @@ const styles = StyleSheet.create({
   ButtonContainer: {
     alignItems: 'center',
     flexDirection: 'row',
+    marginBottom: 10,
     justifyContent: 'space-between',
   },
   outerDateConainer: {
     paddingHorizontal: 3,
-    justifyContent: 'flex-end',
   },
   TitleText: {
     fontSize: 20,

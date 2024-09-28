@@ -177,8 +177,8 @@ const convertFullDateToNepali = (englishDate: any) => {
   const month = getNepaliNumber(splittedDate[1]);
   const day = getNepaliNumber(splittedDate[2]);
   const selectedNepaliDate = `${year}-${
-    splittedDate[1] > 9 ? month : '०' + month
-  }-${splittedDate[2] > 9 ? day : '०' + day}`;
+    splittedDate[1] > 9 ? month : '0' + month
+  }-${splittedDate[2] > 9 ? day : '0' + day}`;
   return selectedNepaliDate;
 };
 

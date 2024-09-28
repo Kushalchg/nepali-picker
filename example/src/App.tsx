@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { BsToAd } from 'react-native-rn-nepali-calendar-picker';
 import { CalendarPicker } from 'react-native-rn-nepali-calendar-picker';
 
 export default function App() {
@@ -18,14 +17,12 @@ export default function App() {
           visible={visible}
           onClose={() => setVisible(false)}
           onDateSelect={onPicked}
+          brandCOlor={''}
         />
       </View>
       <TouchableOpacity style={styles.button} onPress={() => setVisible(true)}>
         <Text style={styles.text}>Open Calendar</Text>
       </TouchableOpacity>
-      <View>
-        <Text>{BsToAd('3085-09-12')}</Text>
-      </View>
       <View>
         <Text>{date}</Text>
       </View>
