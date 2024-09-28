@@ -35,6 +35,11 @@ const isToday = (
   currentMonth: number,
   firstDayOfMonth: number
 ) => {
+  console.log('date', date);
+  console.log('index', index);
+  console.log('currentYear', currentYear);
+  console.log('currentMonth', currentMonth);
+  console.log('FirstDayOfMonth', firstDayOfMonth);
   return (
     parseInt(date.slice(-2)) - 1 + firstDayOfMonth === index &&
     currentMonth === parseInt(date.slice(6, 8)) &&

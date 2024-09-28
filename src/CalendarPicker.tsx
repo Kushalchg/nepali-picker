@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { bs, daysInNepali, monthsInNepali } from './calendar/config';
-import { calcFirstDay } from './calendar/settings';
+import { calcFirstDay, isToday } from './calendar/settings';
 import { NepaliToday } from './calendar/functions';
 import { ChevronIcon } from './assets/Icons';
 import PencilIcon from './assets/cIcon';
@@ -32,6 +32,7 @@ const CalendarPicker = ({
   const cMonth = parseInt(TodayNepaliDate.split('-')[1], 10);
   const cDay = parseInt(TodayNepaliDate.split('-')[2], 10);
 
+  const [firstDayOfMonth, setFirstDayOfMonth] = useState<number>(0);
   const [month, setMonth] = useState<number>(cMonth);
   const [year, setYear] = useState<number>(cYear);
   const [calendarDate, setCalendarDate] = useState<(number | null)[]>([]);
@@ -67,6 +68,7 @@ const CalendarPicker = ({
     // calculate First Day Of Month (FDOM) and Days In Month(DIM)
     const FDOM = calcFirstDay(year, month);
     const DIM = bs[year][month];
+    setFirstDayOfMonth(FDOM);
 
     // array which contain 42 cells and it only fill the date with number if the date is present otherwise it fill cells with null.
     const calendarCells = Array.from({ length: 42 }, (_, index) => {
@@ -79,6 +81,7 @@ const CalendarPicker = ({
     });
     setCalendarDate(calendarCells);
   }, [year, month]);
+
   return (
     <Modal visible={visible}>
       <Pressable style={styles.outerPressable} onPress={onClose}>
@@ -157,9 +160,20 @@ const CalendarPicker = ({
                         {dayItem ? (
                           <View
                             style={{
-                              backgroundColor: '#6969',
-                              padding: 6,
-                              borderRadius: 12,
+                              paddingHorizontal: 6,
+                              paddingVertical: 3,
+                              borderRadius: 999,
+                              backgroundColor: isToday(
+                                TodayNepaliDate,
+                                index,
+                                year,
+                                month,
+                                firstDayOfMonth
+                              )
+                                ? '#696969'
+                                : theme === 'dark'
+                                  ? '#282828'
+                                  : '#fff',
                             }}
                           >
                             <Text>{dayItem}</Text>
