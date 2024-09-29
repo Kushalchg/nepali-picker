@@ -18,7 +18,7 @@ export default function App() {
           onClose={() => setVisible(false)}
           onDateSelect={onPicked}
           language="np"
-          theme="dark"
+          theme="light"
         />
       </View>
       <TouchableOpacity style={styles.button} onPress={() => setVisible(true)}>

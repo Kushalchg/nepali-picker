@@ -6,6 +6,7 @@ import {
   Pressable,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import {
   bs,
@@ -48,6 +49,7 @@ const CalendarPicker = ({
   const [year, setYear] = useState<number>(cYear);
   const [calendarDate, setCalendarDate] = useState<(number | null)[]>([]);
 
+  const [yearModal, setYearModal] = useState<boolean>(false);
   const handleDateClick = (day: number) => {
     const date = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     onDateSelect(date);
@@ -75,6 +77,14 @@ const CalendarPicker = ({
     }
   };
 
+  const openYearView = () => {
+    setYearModal(true);
+  };
+
+  const closeYearView = () => {
+    setYearModal(false);
+  };
+
   useEffect(() => {
     // calculate First Day Of Month (FDOM) and Days In Month(DIM)
     const FDOM = calcFirstDay(year, month);
@@ -97,11 +107,16 @@ const CalendarPicker = ({
     setMonth(cMonth);
     setYear(cYear);
   };
+
+  const handleYearClick = (year: number) => {
+    setYear(year);
+    closeYearView();
+  };
   const dark = theme === 'dark';
   const weekDays = language === 'en' ? daysInEnglish : daysInNepali;
 
   return (
-    <Modal visible={visible}>
+    <Modal visible={visible} onRequestClose={onClose}>
       <Pressable style={styles.outerPressable} onPress={onClose}>
         <Pressable onPress={() => {}} style={styles.innerPressable}>
           <View
@@ -169,7 +184,10 @@ const CalendarPicker = ({
                   color={dark ? 'white' : 'black'}
                 />
               </TouchableOpacity>
-              <View style={{ flexDirection: 'row' }}>
+              <TouchableOpacity
+                style={{ flexDirection: 'row' }}
+                onPress={openYearView}
+              >
                 <Text
                   style={{
                     ...styles.TitleText,
@@ -189,7 +207,7 @@ const CalendarPicker = ({
                 >
                   {language == 'np' ? getNepaliNumber(year) : year}
                 </Text>
-              </View>
+              </TouchableOpacity>
               <TouchableOpacity
                 style={styles.CButton}
                 onPress={handleNextClick}
@@ -283,6 +301,95 @@ const CalendarPicker = ({
           </View>
         </Pressable>
       </Pressable>
+      <Modal visible={yearModal} onRequestClose={closeYearView}>
+        <Pressable
+          style={styles.outerPressable}
+          onPress={() => closeYearView()}
+        >
+          <Pressable style={styles.YearInnerPressable} onPress={() => {}}>
+            <View style={styles.InnerYearView}>
+              {/* <FlatList
+                data={Array(100).fill(0)}
+                numColumns={5}
+                contentContainerStyle={{ height: '100%', width: '100%' }}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ index }) => {
+                  return (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => handleYearClick(index + 2000)}
+                      style={{
+                        paddingHorizontal: 20,
+                        paddingVertical: 6,
+                        marginHorizontal: 4,
+                        marginVertical: 4,
+                        borderColor: 'black',
+                        borderRadius: 20,
+
+                        backgroundColor:
+                          index + 2000 === year ? brandColor : '',
+                        borderWidth: 0.4,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: index + 2000 === year ? 'white' : 'black',
+                        }}
+                      >
+                        {index + 2000}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                }}
+              /> */}
+
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                  display: 'flex',
+                  paddingVertical: 10,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  flexWrap: 'wrap',
+                }}
+              >
+                {Array(100)
+                  .fill(0)
+                  .map((_, index) => {
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        onPress={() => handleYearClick(index + 2000)}
+                        style={{
+                          paddingHorizontal: 20,
+                          paddingVertical: 6,
+                          marginHorizontal: 4,
+                          marginVertical: 4,
+                          borderColor: 'black',
+                          borderRadius: 20,
+
+                          backgroundColor:
+                            index + 2000 === year ? brandColor : '',
+                          borderWidth: 0.4,
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: index + 2000 === year ? 'white' : 'black',
+                          }}
+                        >
+                          {language === 'np'
+                            ? getNepaliNumber(index + 2000)
+                            : index + 2000}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+              </ScrollView>
+            </View>
+          </Pressable>
+        </Pressable>
+      </Modal>
     </Modal>
   );
 };
@@ -296,7 +403,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.54)',
   },
   innerPressable: {
-    minHeight: '50%',
+    minHeight: '20%',
     maxWidth: 500,
     marginHorizontal: 30,
   },
@@ -351,6 +458,19 @@ const styles = StyleSheet.create({
   TitleText: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  // for year view modal
+  YearInnerPressable: {
+    justifyContent: 'center',
+    maxWidth: 500,
+    maxHeight: '70%',
+    marginHorizontal: 30,
+  },
+  InnerYearView: {
+    borderRadius: 20,
+    backgroundColor: '#f2f2f2',
+    minHeight: 50,
+    maxHeight: '100%',
   },
 });
 export default CalendarPicker;
