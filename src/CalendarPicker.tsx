@@ -68,7 +68,7 @@ const CalendarPicker = ({
   };
   const handlePreviousClick = () => {
     if (month === 1) {
-      if (year > 2081) {
+      if (year > 2000) {
         setYear((prev) => prev - 1);
         setMonth(12);
       }
@@ -147,7 +147,7 @@ const CalendarPicker = ({
                     <Text
                       style={{
                         ...styles.TitleText,
-                        fontSize: 27,
+                        fontSize: 20,
                         color: dark ? '#fff' : '#000',
                       }}
                     >
