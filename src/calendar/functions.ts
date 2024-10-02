@@ -14,7 +14,7 @@ const FindDateDifference = (date1: number, date2: number) => {
 };
 
 const AdToBs = (UserDate: string): string => {
-  const ReferenceDate = new Date('2024-04-13').getTime();
+  const ReferenceDate = new Date('1943-04-14').getTime();
   const UserTimeDate = new Date(UserDate).getTime();
 
   if (UserTimeDate < ReferenceDate) {
@@ -26,12 +26,12 @@ const AdToBs = (UserDate: string): string => {
 
   // number of days from that reference date
   const DateDifference = FindDateDifference(ReferenceDate, UserTimeDate);
-  let nepaliYear: number = 2081;
+  let nepaliYear: number = 2000;
   let nepaliMonth: number = 1;
   let nepaliDay: number = 1;
   let DD = DateDifference;
 
-  outerLoop: for (let year = 2081; year < 2100; year++) {
+  outerLoop: for (let year = 2000; year < 2100; year++) {
     for (let month = 1; month <= 12; month++) {
       if (DD <= bs[year][month]) {
         //difference can calculate upto previous day so add 1 to get current day(Today)
@@ -51,7 +51,7 @@ const AdToBs = (UserDate: string): string => {
 };
 
 const NepaliToday = (): string => {
-  const ReferenceDate = new Date('2024-04-13').getTime();
+  const ReferenceDate = new Date('1943-04-14').getTime();
   const TodayDate = Date.now();
   const date = new Date(TodayDate);
   // number of return from that reference date
@@ -60,12 +60,12 @@ const NepaliToday = (): string => {
     new Date(formatDate(date)).getTime()
   );
 
-  let nepaliYear: number = 2081;
+  let nepaliYear: number = 2000;
   let nepaliMonth: number = 1;
   let nepaliDay: number = 1;
   //difference can calculate upto previous day so add 1 to get current day(Today)
   let DD = DateDifference + 1;
-  outerLoop: for (let year = 2081; year < 2100; year++) {
+  outerLoop: for (let year = 2000; year < 2100; year++) {
     for (let month = 1; month <= 12; month++) {
       if (DD <= bs[year][month]) {
         nepaliYear = year;
@@ -92,8 +92,8 @@ const BsToAd = (userDate: string): string => {
       throw new Error('Invalid date format');
     }
     const [userYear, userMonth, userDay] = dateArray.map(Number);
-    if (userYear < 2081 || userYear >= 2100) {
-      throw new Error('Year Range is 2081 to 2099');
+    if (userYear < 2000 || userYear >= 2100) {
+      throw new Error('Year Range is 2000 to 2099');
     }
     if (userMonth < 1 || userMonth > 12) {
       throw new Error('Month Range is 1 to 12');
@@ -101,7 +101,7 @@ const BsToAd = (userDate: string): string => {
     // if (userMonth < 1 || userMonth > 31) {
     //   throw new Error('Month out of supported range');
     // }
-    for (let year = 2081; year < userYear; year++) {
+    for (let year = 2000; year < userYear; year++) {
       for (let month = 1; month <= 12; month++) {
         dateDifference += bs[year][month];
       }
@@ -113,13 +113,13 @@ const BsToAd = (userDate: string): string => {
 
     dateDifference += userDay - 1;
 
-    const referenceDate = new Date('2024-04-13');
+    const referenceDate = new Date('1943-04-14');
     const futureDate = new Date(referenceDate);
     futureDate.setDate(referenceDate.getDate() + dateDifference);
 
     return futureDate.toISOString().split('T')[0];
   } catch (error) {
-    return ' Year Range is 2081 to 2099';
+    return ' Year Range is 2000 to 2099';
   }
 };
 

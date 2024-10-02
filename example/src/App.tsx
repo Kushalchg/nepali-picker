@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { CalendarPicker } from 'react-native-rn-nepali-calendar-picker';
+import {
+  AdToBs,
+  BsToAd,
+  CalendarPicker,
+  NepaliToday,
+} from 'react-native-rn-nepali-calendar-picker';
 
 export default function App() {
   const [visible, setVisible] = useState<boolean>(false);
@@ -26,6 +31,9 @@ export default function App() {
       </TouchableOpacity>
       <View>
         <Text>{date}</Text>
+        <Text>{AdToBs('2000-09-21')}</Text>
+        <Text>{BsToAd('2056-01-01')}</Text>
+        <Text>{NepaliToday()}</Text>
       </View>
     </View>
   );
