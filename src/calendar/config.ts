@@ -252,16 +252,6 @@ const getNepaliNumber = (engNum: number) => {
     .join('');
 };
 
-const getEnglishNumber = (nepNum: number) => {
-  return parseInt(
-    nepNum
-      .toString()
-      .split('')
-      .map((n: any) => nepaliNumber.indexOf(n))
-      .join('')
-  );
-};
-
 export {
   bs,
   daysInNepali,
@@ -269,6 +259,5 @@ export {
   monthsInNepali,
   monthsInEnglish,
   getNepaliNumber,
-  getEnglishNumber,
   leapYears,
 };

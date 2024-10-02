@@ -20,6 +20,7 @@ import { calcFirstDay, isToday } from './calendar/settings';
 import { NepaliToday } from './calendar/functions';
 import { ChevronIcon } from './assets/Icons';
 import DateSyncLogo from './assets/DateSync';
+import Triangle from './assets/Triangle';
 
 interface CalendarPickerPoros {
   visible: boolean;
@@ -185,7 +186,7 @@ const CalendarPicker = ({
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                style={{ flexDirection: 'row' }}
+                style={{ flexDirection: 'row', alignItems: 'center' }}
                 onPress={openYearView}
               >
                 <Text
@@ -202,11 +203,18 @@ const CalendarPicker = ({
                 <Text
                   style={{
                     ...styles.TitleText,
+                    marginRight: 10,
                     color: dark ? 'white' : 'black',
                   }}
                 >
                   {language == 'np' ? getNepaliNumber(year) : year}
                 </Text>
+
+                <Triangle
+                  height={10}
+                  width={13}
+                  color={dark ? 'white' : 'black'}
+                />
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.CButton}
@@ -307,42 +315,12 @@ const CalendarPicker = ({
           onPress={() => closeYearView()}
         >
           <Pressable style={styles.YearInnerPressable} onPress={() => {}}>
-            <View style={styles.InnerYearView}>
-              {/* <FlatList
-                data={Array(100).fill(0)}
-                numColumns={5}
-                contentContainerStyle={{ height: '100%', width: '100%' }}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ index }) => {
-                  return (
-                    <TouchableOpacity
-                      key={index}
-                      onPress={() => handleYearClick(index + 2000)}
-                      style={{
-                        paddingHorizontal: 20,
-                        paddingVertical: 6,
-                        marginHorizontal: 4,
-                        marginVertical: 4,
-                        borderColor: 'black',
-                        borderRadius: 20,
-
-                        backgroundColor:
-                          index + 2000 === year ? brandColor : '',
-                        borderWidth: 0.4,
-                      }}
-                    >
-                      <Text
-                        style={{
-                          color: index + 2000 === year ? 'white' : 'black',
-                        }}
-                      >
-                        {index + 2000}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                }}
-              /> */}
-
+            <View
+              style={{
+                ...styles.InnerYearView,
+                backgroundColor: dark ? '#383838' : '#f2f2f2',
+              }}
+            >
               <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
@@ -365,7 +343,7 @@ const CalendarPicker = ({
                           paddingVertical: 6,
                           marginHorizontal: 4,
                           marginVertical: 4,
-                          borderColor: 'black',
+                          borderColor: dark ? 'white' : 'black',
                           borderRadius: 20,
 
                           backgroundColor:
@@ -375,7 +353,13 @@ const CalendarPicker = ({
                       >
                         <Text
                           style={{
-                            color: index + 2000 === year ? 'white' : 'black',
+                            fontWeight: '500',
+                            color:
+                              index + 2000 === year
+                                ? 'white'
+                                : dark
+                                  ? 'white'
+                                  : 'black',
                           }}
                         >
                           {language === 'np'

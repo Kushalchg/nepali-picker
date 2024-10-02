@@ -23,19 +23,44 @@ const ChevronIcon = ({ direction = 'right', size = 15, color = '#000' }) => {
   );
 };
 
-const DropdownIcon = ({ size = 24, color = '#000' }) => {
-  return (
-    <View style={[styles.container, { width: size, height: size }]}>
-      <View style={[styles.triangle, { borderTopColor: color }]} />
-    </View>
-  );
-};
 const EditPencilIcon = ({ size = 24, color = '#000' }) => {
   return (
     <View style={[styles.container, { width: size, height: size }]}>
       <View style={[styles.pencilBody, { backgroundColor: color }]} />
       <View style={[styles.pencilTip, { borderBottomColor: color }]} />
       <View style={[styles.pencilEraser, { backgroundColor: '#FFA07A' }]} />
+    </View>
+  );
+};
+const Triangle = ({ width = 10, height = 20, color = 'white' }) => {
+  return (
+    <View
+      style={[
+        styles.triangle,
+        {
+          borderLeftWidth: width / 2,
+          borderRightWidth: width / 2,
+          borderBottomWidth: height,
+          borderBottomColor: color,
+        },
+      ]}
+    />
+  );
+};
+const ChevronDown = ({ size = 10, color = '#000' }) => {
+  return (
+    <View
+      style={[
+        styles.container,
+        { width: size, height: size, transform: [{ rotate: '-90deg' }] },
+      ]}
+    >
+      <View
+        style={[styles.line, styles.rightTop, { backgroundColor: color }]}
+      />
+      <View
+        style={[styles.line, styles.rightBottom, { backgroundColor: color }]}
+      />
     </View>
   );
 };
@@ -75,12 +100,12 @@ const styles = StyleSheet.create({
     height: 0,
     backgroundColor: 'transparent',
     borderStyle: 'solid',
-    borderLeftWidth: 8,
-    borderRightWidth: 8,
+    borderLeftWidth: 6,
+    borderRightWidth: 6,
     borderBottomWidth: 0,
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
-    borderTopWidth: 12,
+    borderTopWidth: 8,
   },
   pencilBody: {
     width: '60%',
@@ -115,4 +140,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { ChevronIcon, DropdownIcon, EditPencilIcon };
+export { ChevronIcon, ChevronDown, EditPencilIcon, Triangle };
