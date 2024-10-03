@@ -11,17 +11,18 @@ export default function App() {
   const [visible, setVisible] = useState<boolean>(false);
   const [date, setDate] = useState<string>();
 
-  const onPicked = (date: string) => {
+  const onDateSelect = (date: string) => {
     setDate(date);
   };
 
   return (
     <View style={styles.container}>
       <View>
+        {/* actual picker component */}
         <CalendarPicker
           visible={visible}
           onClose={() => setVisible(false)}
-          onDateSelect={onPicked}
+          onDateSelect={onDateSelect}
           language="np"
           theme="light"
         />
@@ -31,8 +32,12 @@ export default function App() {
       </TouchableOpacity>
       <View>
         <Text>{date}</Text>
+        {/* convert date on AD to BS equivalent date: required format is (YYYY-MM-DD) */}
         <Text>{AdToBs('2000-09-21')}</Text>
+
+        {/* convert date on BS to AD equivalent date: required  format is (YYYY-MM-DD)  */}
         <Text>{BsToAd('2056-01-01')}</Text>
+        {/* This function will return the current nepali date: return value is string and format is (YYYY-MM-DD) */}
         <Text>{NepaliToday()}</Text>
       </View>
     </View>
