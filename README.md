@@ -1,4 +1,4 @@
-# react-native-rn-nepali-calendar-picker
+# react-native-nepali-picker
 
 Nepali date (BS) picker of react native which also do date conversion form ADtoBS and vice versa. It is the most customizable Nepali date picker for react native where you can configure every part of calendar and make it suit your theme. Written in Typescript .
 

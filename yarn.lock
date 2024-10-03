@@ -12527,9 +12527,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-rn-nepali-calendar-picker-example@workspace:example":
+"react-native-nepali-picker-example@workspace:example":
   version: 0.0.0-use.local
-  resolution: "react-native-rn-nepali-calendar-picker-example@workspace:example"
+  resolution: "react-native-nepali-picker-example@workspace:example"
   dependencies:
     "@babel/core": ^7.20.0
     "@expo/metro-runtime": ~3.2.3
@@ -12543,9 +12543,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"react-native-rn-nepali-calendar-picker@workspace:.":
+"react-native-nepali-picker@workspace:.":
   version: 0.0.0-use.local
-  resolution: "react-native-rn-nepali-calendar-picker@workspace:."
+  resolution: "react-native-nepali-picker@workspace:."
   dependencies:
     "@commitlint/config-conventional": ^17.0.2
     "@evilmartians/lefthook": ^1.5.0

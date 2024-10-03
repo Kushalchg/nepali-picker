@@ -5,7 +5,7 @@ import {
   BsToAd,
   CalendarPicker,
   NepaliToday,
-} from 'react-native-rn-nepali-calendar-picker';
+} from 'react-native-nepali-picker';
 
 export default function App() {
   const [visible, setVisible] = useState<boolean>(false);

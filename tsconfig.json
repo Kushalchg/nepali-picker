@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-rn-nepali-calendar-picker": ["./src/index"]
+      "react-native-nepali-picker": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
