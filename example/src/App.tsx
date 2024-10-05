@@ -11,8 +11,8 @@ export default function App() {
   const [visible, setVisible] = useState<boolean>(false);
   const [date, setDate] = useState<string>();
 
-  const onDateSelect = (date: string) => {
-    setDate(date);
+  const onDateSelect = (PickedDate: string) => {
+    setDate(PickedDate);
   };
 
   return (
