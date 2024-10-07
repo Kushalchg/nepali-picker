@@ -11,11 +11,11 @@ npm install react-native-nepali-picker
 ## Usage
 
 ```js
-import { multiply } from 'react-native-nepali-picker';
+import { AdToBs } from 'react-native-nepali-picker';
 
 // ...
 
-const result = await multiply(3, 7);
+const result = AdToBs("2000-09-21");
 ```
 
 ## Contributing
