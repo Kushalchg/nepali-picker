@@ -1,1 +1,4 @@
-This is the most complete nepali date picker for react native that you can find on internet.
+This is the most complete Nepali date picker for react native that you can find on the internet.
+
+
+
