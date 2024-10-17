@@ -1,4 +1,4 @@
-# react-native-nepali-picker
+ # react-native-nepali-picker
 
 As a Nepali-date picker it will help you on your `react native` project to integrate the Nepali date picker. Alongside it's main feature it will also help you to
 
@@ -12,7 +12,35 @@ As a Nepali-date picker it will help you on your `react native` project to integ
 npm install react-native-nepali-picker
 ```
 
-## Usage
+# Usage
+
+# configuration
+
+## Props
+
+### visible
+
+Boolean value to control whether to show the picker modal or not.
+
+| type | default | required |
+|-------|-------|-------|
+| boolean | none | yes |
+
+
+### onClose
+
+Function that execute on picker modal closed.
+You have to set the visible props to false , in addition to that you can execute others customs function too.
+
+| type | default | required |
+|-------|-------|-------|
+| ()=>void | none | yes |
+
+
+### onDateSelect
+
+Function that execute on select the date
+
 
 ```js
 <<<<<<< HEAD
@@ -25,6 +53,10 @@ const result = AdToBs("2000-09-21");
 const result = await multiply(3, 7);
 >>>>>>> 567f9b7 (feat: added some extra docs)
 ```
+
+
+
+
 
 ## Contributing
 
