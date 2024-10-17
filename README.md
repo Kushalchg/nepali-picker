@@ -19,7 +19,6 @@ npm install react-native-nepali-picker
 ## Props
 
 ### visible
-
 Boolean value to control whether to show the picker modal or not.
 
 | type | default | required |
@@ -28,7 +27,6 @@ Boolean value to control whether to show the picker modal or not.
 
 
 ### onClose
-
 Function that execute on picker modal closed.
 You have to set the visible props to false , in addition to that you can execute others customs function too.
 
@@ -38,8 +36,29 @@ You have to set the visible props to false , in addition to that you can execute
 
 
 ### onDateSelect
-
 Function that execute on select the date
+The string parameter is the selected  date in Nepali format.
+
+| type | default | required |
+|-------|-------|-------|
+| (string)=>void | none | yes |
+
+
+
+### theme
+Preferred theme for picker modal.
+
+| type | default | required |
+|-------|-------|-------|
+| "dark"\|"light" | light| no|
+
+
+### language
+Preferred language for picker modal.
+
+| type | default | required |
+|-------|-------|-------|
+| "en"\|"np"| "en"| no |
 
 
 ```js
