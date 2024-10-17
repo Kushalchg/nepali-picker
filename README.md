@@ -4,7 +4,10 @@ As a Nepali-date picker it will help you on your `react native` project to integ
 
 ## Feature of the plugins
 
-:
+- Support all platforms (IOS, android, web and expo).
+- Minimalist design.
+- Support Nepali and English language.
+- Support dark theme.
 
 ## Installation
 
