@@ -1,21 +1,54 @@
- # react-native-nepali-picker
-
-As a Nepali-date picker it will help you on your `react native` project to integrate the Nepali date picker.Addition to that it also have functions to for date conversion.
-
-## Feature of the plugins
-- Support all platforms (IOS, android, web and expo).
-- Minimalist design.
-- Support Nepali and English language.
-- Support dark theme.
-- Support Date conversion form BS to Ad and vice-versa.
-
 ## Installation
-
 ```sh
+
+# Install with npm
+
 npm install react-native-nepali-picker
+
+# For installation with yarn
+
+yarn add react-native-nepali-picker
 ```
 
 # Usage
+```ts
+
+import { useState } from 'react';
+import {View, Text, TouchableOpacity } from 'react-native';
+import {
+  CalendarPicker,
+} from 'react-native-nepali-picker';
+
+export default function App() {
+  const [visible, setVisible] = useState<boolean>(false);
+  const [date, setDate] = useState<string>();
+
+  const onDateSelect = (PickedDate: string) => {
+    setDate(PickedDate);
+  };
+
+  return (
+    <View style={styles.container}>
+      <View>
+        {/* actual picker component */}
+        <CalendarPicker
+          visible={visible}
+          onClose={() => setVisible(false)}
+          onDateSelect={onDateSelect}
+          language="np"
+          theme="light"
+        />
+      </View>
+
+      {/* Button to open calendar picker*/}
+      <TouchableOpacity onPress={() => setVisible(true)}>
+        <Text>Open Calendar</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+```
+
 
 # configuration
 
@@ -47,13 +80,12 @@ The string parameter is the selected  date in Nepali format.
 | (string)=>void | none | yes |
 
 
-
 ### theme
 Preferred theme for picker modal.
 
 | type | default | required |
 |-------|-------|-------|
-| "dark"\|"light" | light| no|
+| "dark" \| "light" | light| no|
 
 
 ## language
@@ -61,7 +93,18 @@ Preferred language for picker modal.
 
 | type | default | required |
 |-------|-------|-------|
-| "en"\|"np"| "en"| no |
+| "en" \| "np"| "en"| no |
+
+
+## brandColor = '#2081b9',
+Color that represent your brand or organization. This color only applied to highlight today date on calendar.
+
+> [!Note]
+> Provide the string of color in hex code.
+
+| type | default | required |
+|-------|-------|-------|
+| "string"| "#2081b9"| no |
 
 
 ## Functions
@@ -71,11 +114,13 @@ This package provides three main functions:
 Convert a date from Anno Domini (AD) to Bikram Sambat (BS):
 Function return the BS date in string type with format `yyyy-mm-dd`
 
->[!Warning]
-> Supported date range is 1943-04-14 AD to 2042-04-14 AD.
+>[!Note]
+> Supported date range is `1943-04-14` AD to `2042-04-14` AD.
 
 #### **uses**
 ```js
+import {AdToBs} form 'react-native-nepali-picker'
+
 const adDate = '2000-09-21';
 const bsDate = AdToBs(adDate);
 console.log(bsDate); // Output: 2057-06-05
@@ -85,12 +130,14 @@ console.log(bsDate); // Output: 2057-06-05
 Convert date from Bikram Sambat (BS) to Anno Domini (AD).
 Function return the AD date in string type with format `yyyy-mm-dd`.
 
->[!Warning]
-> The supported date range is 2000-01-01 BS to 2099-01-01 BS.
+>[!Note]
+> Supported date range is `2000-01-01` BS to `2099-01-01` BS.
 
 
 #### **uses**
 ```js
+import {BsToAd} form 'react-native-nepali-picker'
+
 const bsDate = '2057-06-05';
 const adDate = BsToAd(bsDate);
 console.log(adDate); // Output: 2000-09-21
@@ -102,31 +149,90 @@ Function return the BS date in string type with format `yyyy-mm-dd`.
 
 ### **uses**
 ```js
+import {NepaliToday} form 'react-native-nepali-picker'
+
 const today = NepaliToday();
 console.log(today); // Output: Current date in BS format (e.g., 2080-07-15)
 ```
 
+## Example uses
 
 
+```ts
 
+import { useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import {
+  AdToBs,
+  BsToAd,
+  CalendarPicker,
+  NepaliToday,
+} from 'react-native-nepali-picker';
 
+export default function App() {
+  const [visible, setVisible] = useState<boolean>(false);
+  const [date, setDate] = useState<string>();
 
-```js
-<<<<<<< HEAD
-import { AdToBs } from 'react-native-nepali-picker';
+  const onDateSelect = (PickedDate: string) => {
+    setDate(PickedDate);
+  };
 
-// ...
+  return (
+    <View style={styles.container}>
+      <View>
+        {/* actual picker component */}
+        <CalendarPicker
+          visible={visible}
+          onClose={() => setVisible(false)}
+          onDateSelect={onDateSelect}
+          language="np"
+          theme="light"
+        />
+      </View>
+      <TouchableOpacity style={styles.button} onPress={() => setVisible(true)}>
+        <Text style={styles.text}>Open Calendar</Text>
+      </TouchableOpacity>
+      <View>
+        <Text>{date}</Text>
+        {/* convert date on AD to BS equivalent date: required format is (YYYY-MM-DD) */}
+        <Text>{AdToBs('2000-09-21')}</Text>
 
-const result = AdToBs("2000-09-21");
-=======
-const result = await multiply(3, 7);
->>>>>>> 567f9b7 (feat: added some extra docs)
+        {/* convert date on BS to AD equivalent date: required  format is (YYYY-MM-DD)  */}
+        <Text>{BsToAd('2056-01-01')}</Text>
+        {/* This function will return the current nepali date: return value is string and format is (YYYY-MM-DD) */}
+        <Text>{NepaliToday()}</Text>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  button: {
+    paddingHorizontal: 10,
+    paddingVertical: 20,
+    borderRadius: 5,
+    backgroundColor: '#fe6684',
+    marginBottom: 10,
+  },
+
+  text: {
+    color: '#000',
+    fontSize: 20,
+  },
+  box: {
+    width: 60,
+    height: 60,
+    marginVertical: 20,
+  },
+});
+
 ```
-
-
-
-
-
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.

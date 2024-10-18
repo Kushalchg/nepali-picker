@@ -1,13 +1,13 @@
- # react-native-nepali-picker
+# react-native-nepali-picker
 
-As a Nepali-date picker it will help you on your `react native` project to integrate the Nepali date picker. Alongside it's main feature it will also help you to
+As a Nepali-date picker it will help you on your `react native` project to integrate the Nepali date picker.Addition to that it also have functions for date conversion.
 
 ## Feature of the plugins
-
 - Support all platforms (IOS, android, web and expo).
 - Minimalist design.
 - Support Nepali and English language.
 - Support dark theme.
+- Support Date conversion form BS to Ad and vice-versa.
 
 ## Installation
 
@@ -75,10 +75,6 @@ const result = AdToBs("2000-09-21");
 const result = await multiply(3, 7);
 >>>>>>> 567f9b7 (feat: added some extra docs)
 ```
-
-
-
-
 
 ## Contributing
 

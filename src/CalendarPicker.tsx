@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  type TextStyle,
 } from 'react-native';
 import {
   bs,
@@ -30,6 +31,9 @@ interface CalendarPickerPoros {
   onDateSelect: (date: string) => void;
   language?: 'en' | 'np';
   brandColor?: string;
+  dayTextStyle?: TextStyle;
+  weekTextStyle?: TextStyle;
+  titleTextStyle?: TextStyle;
 }
 
 const CalendarPicker = ({
@@ -39,6 +43,19 @@ const CalendarPicker = ({
   onDateSelect,
   language = 'np',
   brandColor = '#2081b9',
+  titleTextStyle = {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  weekTextStyle = {
+    fontWeight: 'bold',
+    fontSize: 14,
+    color: 'black',
+  },
+  dayTextStyle = {
+    fontSize: 14,
+    fontWeight: '600',
+  },
 }: CalendarPickerPoros) => {
   const TodayNepaliDate = NepaliToday();
   const cYear = parseInt(TodayNepaliDate.split('-')[0], 10);
@@ -109,8 +126,8 @@ const CalendarPicker = ({
     setYear(cYear);
   };
 
-  const handleYearClick = (year: number) => {
-    setYear(year);
+  const handleYearClick = (y: number) => {
+    setYear(y);
     closeYearView();
   };
   const dark = theme === 'dark';
@@ -147,8 +164,7 @@ const CalendarPicker = ({
                   {language == 'np' ? (
                     <Text
                       style={{
-                        ...styles.TitleText,
-                        fontSize: 20,
+                        ...titleTextStyle,
                         color: dark ? '#fff' : '#000',
                       }}
                     >
@@ -158,8 +174,7 @@ const CalendarPicker = ({
                   ) : (
                     <Text
                       style={{
-                        ...styles.TitleText,
-                        fontSize: 27,
+                        ...titleTextStyle,
                         color: dark ? '#fff' : '#000',
                       }}
                     >
@@ -191,23 +206,23 @@ const CalendarPicker = ({
               >
                 <Text
                   style={{
-                    ...styles.TitleText,
+                    ...titleTextStyle,
                     marginRight: 6,
                     color: dark ? 'white' : 'black',
                   }}
                 >
-                  {language == 'np'
+                  {language === 'np'
                     ? monthsInNepali[month - 1]
                     : monthsInEnglish[month - 1]}
                 </Text>
                 <Text
                   style={{
-                    ...styles.TitleText,
+                    ...titleTextStyle,
                     marginRight: 10,
                     color: dark ? 'white' : 'black',
                   }}
                 >
-                  {language == 'np' ? getNepaliNumber(year) : year}
+                  {language === 'np' ? getNepaliNumber(year) : year}
                 </Text>
 
                 <Triangle
@@ -236,7 +251,7 @@ const CalendarPicker = ({
                     <View style={styles.WeekItem} key={index}>
                       <Text
                         style={{
-                          ...styles.WeekText,
+                          ...weekTextStyle,
                           color: dark ? 'white' : 'black',
                         }}
                       >
@@ -281,7 +296,7 @@ const CalendarPicker = ({
                         >
                           <Text
                             style={{
-                              ...styles.DayText,
+                              ...dayTextStyle,
                               color: isToday(
                                 TodayNepaliDate,
                                 index,
@@ -406,11 +421,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 18,
   },
-  WeekText: {
-    fontWeight: 'bold',
-    fontSize: 14,
-    color: 'black',
-  },
+  //WeekText: {
+  //  fontWeight: 'bold',
+  //  fontSize: 14,
+  //  color: 'black',
+  //},
   datesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -422,10 +437,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
   },
-  DayText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
+  //DayText: {
+  //  fontSize: 14,
+  //  fontWeight: '600',
+  //},
   CButton: {
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -439,10 +454,10 @@ const styles = StyleSheet.create({
   outerDateConainer: {
     paddingHorizontal: 3,
   },
-  TitleText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
+  //TitleText: {
+  //  fontSize: 20,
+  //  fontWeight: 'bold',
+  //},
   // for year view modal
   YearInnerPressable: {
     justifyContent: 'center',
