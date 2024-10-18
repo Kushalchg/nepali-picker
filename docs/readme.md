@@ -1,12 +1,13 @@
  # react-native-nepali-picker
 
-As a Nepali-date picker it will help you on your `react native` project to integrate the Nepali date picker. Alongside it's main feature it will also help you to
+As a Nepali-date picker it will help you on your `react native` project to integrate the Nepali date picker.Addition to that it also have functions to for date conversion.
 
 ## Feature of the plugins
 - Support all platforms (IOS, android, web and expo).
 - Minimalist design.
 - Support Nepali and English language.
 - Support dark theme.
+- Support Date conversion form BS to Ad and vice-versa.
 
 ## Installation
 
@@ -63,7 +64,51 @@ Preferred language for picker modal.
 | "en"\|"np"| "en"| no |
 
 
-## Methods
+## Functions
+This package provides three main functions:
+
+### 1) AdtoBs(date:string):string
+Convert a date from Anno Domini (AD) to Bikram Sambat (BS):
+Function return the BS date in string type with format `yyyy-mm-dd`
+
+[!NOTE]
+ The supported date range is 1943-04-14 AD to 2042-04-14.
+
+#### **uses**
+```js
+const adDate = '2000-09-21';
+const bsDate = AdToBs(adDate);
+console.log(bsDate); // Output: 2057-06-05
+```
+
+### 2) BstoAd(date:string):string
+Convert date from Bikram Sambat (BS) to Anno Domini (AD).
+Function return the AD date in string type with format `yyyy-mm-dd`.
+
+[!NOTE]
+ The supported date range is 2000-01-01 BS to 2099-01-01.
+
+
+#### **uses**
+```js
+const bsDate = '2057-06-05';
+const adDate = BsToAd(bsDate);
+console.log(adDate); // Output: 2000-09-21
+```
+
+### 3) NepaliToday():string
+Get the current date in Nepali calendar (BS)
+Function return the BS date in string type with format `yyyy-mm-dd`.
+
+### **uses**
+```js
+const today = NepaliToday();
+console.log(today); // Output: Current date in BS format (e.g., 2080-07-15)
+```
+
+
+
+
 
 
 ```js
