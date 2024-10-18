@@ -1,15 +1,19 @@
-## Installation
+# Installation
 ```sh
 
 # Install with npm
-
 npm install react-native-nepali-picker
 
 # For installation with yarn
 yarn add react-native-nepali-picker
 ```
 
+<!--Images here-->
+
 # Usage
+Example uses of `<CalendarPicker/>` component, which is the actual picker component. For more info
+
+
 ```jsx
 
 import { useState } from 'react';
@@ -35,8 +39,12 @@ export default function App() {
           visible={visible}
           onClose={() => setVisible(false)}
           onDateSelect={onDateSelect}
-          language="np"
-          theme="light"
+          //these are optional
+
+          //language="np"
+          //theme="light"
+          //brandColor="#420420"
+
         />
       </View>
 
@@ -50,9 +58,8 @@ export default function App() {
 ```
 
 
-# configuration
 
-## Props
+# Props
 
 ### visible
 Boolean value to control whether to show the picker modal or not.
@@ -88,7 +95,7 @@ Preferred theme for picker modal.
 | "dark" \| "light" | light| no|
 
 
-## language
+### language
 Preferred language for picker modal.
 
 | type | default | required |
@@ -96,7 +103,7 @@ Preferred language for picker modal.
 | "en" \| "np"| "en"| no |
 
 
-## brandColor = '#2081b9',
+### brandColor
 Color that represent your brand or organization. This color only applied to highlight today date on calendar.
 
 > [!Note]
@@ -107,7 +114,7 @@ Color that represent your brand or organization. This color only applied to high
 | "string"| "#2081b9"| no |
 
 
-## Functions
+# Functions
 This package provides three main functions:
 
 ### 1) AdtoBs(date:string):string
@@ -147,7 +154,7 @@ console.log(adDate); // Output: 2000-09-21
 Get the current date in Nepali calendar (BS)
 Function return the BS date in string type with format `yyyy-mm-dd`.
 
-### **uses**
+#### **uses**
 ```js
 import {NepaliToday} form 'react-native-nepali-picker'
 
@@ -233,17 +240,15 @@ const styles = StyleSheet.create({
 });
 
 ```
-## Contributing
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+If you noticed something that need improvement or have additional feature request or just want to chat, feel free to reach out or you can create pull request for feature request, I will try my best to help you.
 
-## License
 
-MIT
+>Social:( *** You will get instant response on Linkedin  than Email *** )
 
----
+[Linkedin](https://www.linkedin.com/in/kushal-chapagain-1aa66419a/)
 
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+[Email](mailto:chapagainkushal74@gmail.com)
 
 
 
