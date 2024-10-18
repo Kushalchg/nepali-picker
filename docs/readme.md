@@ -6,15 +6,15 @@
 npm install react-native-nepali-picker
 
 # For installation with yarn
-
 yarn add react-native-nepali-picker
 ```
 
 # Usage
-```ts
+```jsx
 
 import { useState } from 'react';
 import {View, Text, TouchableOpacity } from 'react-native';
+//import calendar picker component
 import {
   CalendarPicker,
 } from 'react-native-nepali-picker';
@@ -155,10 +155,10 @@ const today = NepaliToday();
 console.log(today); // Output: Current date in BS format (e.g., 2080-07-15)
 ```
 
-## Example uses
+## Full Example uses
 
 
-```ts
+```jsx
 
 import { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
