@@ -48,8 +48,7 @@ const CalendarPicker = ({
     fontWeight: 'bold',
   },
   weekTextStyle = {
-    fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 15,
     color: 'black',
   },
   dayTextStyle = {
@@ -252,6 +251,7 @@ const CalendarPicker = ({
                       <Text
                         style={{
                           ...weekTextStyle,
+                          fontWeight: 'bold',
                           color: dark ? 'white' : 'black',
                         }}
                       >
@@ -297,6 +297,7 @@ const CalendarPicker = ({
                           <Text
                             style={{
                               ...dayTextStyle,
+                              fontSize: language === 'np' ? 16 : 14,
                               color: isToday(
                                 TodayNepaliDate,
                                 index,
