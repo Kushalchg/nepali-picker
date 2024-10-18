@@ -71,8 +71,8 @@ This package provides three main functions:
 Convert a date from Anno Domini (AD) to Bikram Sambat (BS):
 Function return the BS date in string type with format `yyyy-mm-dd`
 
-[!NOTE]
- The supported date range is 1943-04-14 AD to 2042-04-14.
+>[!Warning]
+> Supported date range is 1943-04-14 AD to 2042-04-14 AD.
 
 #### **uses**
 ```js
@@ -85,8 +85,8 @@ console.log(bsDate); // Output: 2057-06-05
 Convert date from Bikram Sambat (BS) to Anno Domini (AD).
 Function return the AD date in string type with format `yyyy-mm-dd`.
 
-[!NOTE]
- The supported date range is 2000-01-01 BS to 2099-01-01.
+>[!Warning]
+> The supported date range is 2000-01-01 BS to 2099-01-01 BS.
 
 
 #### **uses**
