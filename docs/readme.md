@@ -240,14 +240,14 @@ const styles = StyleSheet.create({
 });
 
 ```
-
+## Contact
 If you noticed something that need improvement or have additional feature request or just want to chat, feel free to reach out or you can create pull request for feature request, I will try my best to help you.
 
 
->Social:( *** You will get instant response on Linkedin  than Email *** )
+#### Social
+( *You will get instant response on Linkedin  than Email.* )
 
 [Linkedin](https://www.linkedin.com/in/kushal-chapagain-1aa66419a/)
-
 [Email](mailto:chapagainkushal74@gmail.com)
 
 

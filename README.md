@@ -1,12 +1,11 @@
 # react-native-nepali-picker
 
-[![npm](https://img.shields.io/badge/types-included-blue?style=falt)](https://www.npmjs.com/package/@gorhom/bottom-sheet) [![android](https://img.shields.io/badge/android-000.svg?style=flat-square&logo=android&labelColor=f2f2f2&logoColor=34A853)]
+ [![android](https://img.shields.io/badge/android-000.svg?style=flat-square&logo=android&labelColor=f2f2f2&logoColor=34A853)][![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-000.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)][![ios](https://img.shields.io/badge/IOS-000.svg?style=flat-square&logo=apple&labelColor=fff&logoColor=000)]
 
-[![npm](https://img.shields.io/badge/types-included-blue?style=flat-square)](https://www.npmjs.com/package/@gorhom/bottom-sheet) [![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-000.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)]
-[![npm](https://img.shields.io/badge/types-included-blue?style=flat-square)](https://www.npmjs.com/package/@gorhom/bottom-sheet) [![ios](https://img.shields.io/badge/IOS-000.svg?style=flat-square&logo=apple&labelColor=fff&logoColor=000)]
+
 As a Nepali-date picker it will help you on your `react native` project to integrate the Nepali date picker.Addition to that it also have functions for date conversion.
 
-## Feature of the plugins
+## Feature
 - Support all platforms (IOS, android, web and expo).
 - Minimalist design.
 - Support Nepali and English language.
@@ -128,6 +127,27 @@ Color that represent your brand or organization. This color only applied to high
 |-------|-------|-------|
 | "string"| "#2081b9"| no |
 
+### titleTextStyle
+
+style for title text:
+
+| type | default | required |
+|-------|-------|-------|
+|   TextStyle |{fontSize:20,fontWeight:'bold'  } | no |
+**uses**
+
+```jsx
+   <CalendarPicker
+     visible={visible}
+        onClose={() => setVisible(false)}
+        onDateSelect={onDateSelect}
+        language="np"
+        theme="dark"
+        //dayTextStyle={{ fontSize: 14, }}
+        //weekTextStyle={{ fontSize: 15, }}
+        //titleTextStyle={{ fontSize: 20, }}
+   />
+```
 
 # Functions
 This package provides three main functions:
@@ -260,12 +280,11 @@ const styles = StyleSheet.create({
 
 If you noticed something that need improvement or have additional feature request or just want to chat, feel free to reach out or you can create pull request for feature request, I will try my best to help you.
 
->Social: ( *You will get instant response on Linkedin  than Email* )
+#### Social
+( *You will get instant response on Linkedin  than Email.* )
 
 [Linkedin](https://www.linkedin.com/in/kushal-chapagain-1aa66419a/)
-
 [Email](mailto:chapagainkushal74@gmail.com)
-
 
 ## Contributing
 

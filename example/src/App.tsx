@@ -24,7 +24,11 @@ export default function App() {
           onClose={() => setVisible(false)}
           onDateSelect={onDateSelect}
           language="np"
-          theme="light"
+          theme="dark"
+
+          //dayTextStyle={{ fontSize: 14, }}
+          //weekTextStyle={{ fontSize: 15, }}
+          //titleTextStyle={{ fontSize: 20, }}
         />
       </View>
       <TouchableOpacity style={styles.button} onPress={() => setVisible(true)}>
