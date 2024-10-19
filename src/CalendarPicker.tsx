@@ -51,7 +51,6 @@ const CalendarPicker = ({
   weekTextStyle = {
     fontSize: 15,
     fontWeight: 'bold',
-    color: 'black',
   },
   dayTextStyle = {
     fontSize: 15,

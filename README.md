@@ -1,6 +1,6 @@
 # react-native-nepali-picker
 
- [![android](https://img.shields.io/badge/android-000.svg?style=flat-square&logo=android&labelColor=f2f2f2&logoColor=34A853)][![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-000.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)][![ios](https://img.shields.io/badge/IOS-000.svg?style=flat-square&logo=apple&labelColor=fff&logoColor=000)]
+ ![android](https://img.shields.io/badge/android-000.svg?style=flat-square&logo=android&labelColor=f2f2f2&logoColor=34A853)&nbsp;&nbsp;![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-000.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)&nbsp;&nbsp;![ios](https://img.shields.io/badge/IOS-000.svg?style=flat-square&logo=apple&labelColor=fff&logoColor=000)
 
 
 As a Nepali-date picker it will help you on your `react native` project to integrate the Nepali date picker.Addition to that it also have functions for date conversion.
@@ -127,15 +127,42 @@ Color that represent your brand or organization. This color only applied to high
 |-------|-------|-------|
 | "string"| "#2081b9"| no |
 
-### titleTextStyle
 
-style for title text:
+
+### titleTextStyle
+Props that help you to apply custom style on date title of picker modal.
+
+>[!> [!WARNING]
+> Color of text can't be changed,it's explicitly defined according to the theme you choose default to `black`.]
+
 
 | type | default | required |
 |-------|-------|-------|
 |   TextStyle |{fontSize:20,fontWeight:'bold'  } | no |
-**uses**
 
+
+### weekTextStyle
+Props that help you to apply custom style on week text of picker modal.
+
+>[!> [!WARNING]
+> Color of text can't be changed,it's explicitly defined according to the theme you choose default to `black`.]
+
+| type | default | required |
+|-------|-------|-------|
+|   TextStyle |{fontSize:15,fontWeight:'bold'  } | no |
+
+
+### dayTextStyle
+Props that help you to apply custom style on day text of picker modal.
+
+>[!> [!WARNING]
+> Color of text can't be changed,it's explicitly defined according to the theme you choose default to `black`.]
+
+| type | default | required |
+|-------|-------|-------|
+|   TextStyle |{fontSize:15,fontWeight:'600'  } | no |
+
+**uses**
 ```jsx
    <CalendarPicker
      visible={visible}

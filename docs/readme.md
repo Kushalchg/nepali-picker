@@ -113,6 +113,53 @@ Color that represent your brand or organization. This color only applied to high
 |-------|-------|-------|
 | "string"| "#2081b9"| no |
 
+### titleTextStyle
+Props that help you to apply custom style on date title of picker modal.
+
+>[!> [!WARNING]
+> Color of text can't be changed,it's explicitly defined according to the theme you choose default to `black`.]
+
+
+| type | default | required |
+|-------|-------|-------|
+|   TextStyle |{fontSize:20,fontWeight:'bold'  } | no |
+
+
+### weekTextStyle
+Props that help you to apply custom style on week text of picker modal.
+
+>[!> [!WARNING]
+> Color of text can't be changed,it's explicitly defined according to the theme you choose default to `black`.]
+
+| type | default | required |
+|-------|-------|-------|
+|   TextStyle |{fontSize:15,fontWeight:'bold'  } | no |
+
+
+### dayTextStyle
+Props that help you to apply custom style on day text of picker modal.
+
+>[!> [!WARNING]
+> Color of text can't be changed,it's explicitly defined according to the theme you choose default to `black`.]
+
+| type | default | required |
+|-------|-------|-------|
+|   TextStyle |{fontSize:15,fontWeight:'600'  } | no |
+
+**uses**
+```jsx
+   <CalendarPicker
+     visible={visible}
+        onClose={() => setVisible(false)}
+        onDateSelect={onDateSelect}
+        language="np"
+        theme="dark"
+        //dayTextStyle={{ fontSize: 14, }}
+        //weekTextStyle={{ fontSize: 15, }}
+        //titleTextStyle={{ fontSize: 20, }}
+   />
+```
+
 
 # Functions
 This package provides three main functions:
