@@ -1,7 +1,7 @@
 {
   "name": "react-native-nepali-picker",
-  "version": "0.1.0",
-  "description": "Nepali date (BS) picker of react native which also do date conversion form ADtoBS and vice versa. It is the most customizable Nepali date picker for react native where you can configure every part of calendar and make it suit your theme. Written in Typescript . ",
+  "version": "1.0.0",
+  "description": "Minimalist and modern Nepali-date picker whith customization.🌟",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
@@ -45,20 +45,27 @@
     "release": "release-it"
   },
   "keywords": [
-    "react-native",
+    "react-native-nepali",
+    "nepali-picker",
+    "nepali-date-picker",
+    "date-picker",
+    "react-native-nepali-date-picker",
+    "react-native-nepali-picker",
+    "calendar-picker",
+    "nepali",
     "ios",
     "android"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nepali-picker.git"
+    "url": "https://github.com/Kushalchg/nepali-picker"
   },
   "author": "Kushal Chapagain <chapagainkushal74@gmail.com> (https://kushalchapagain.com.np)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nepali-picker/issues"
+    "url": "https://github.com/Kushalchg/nepali-picker/issues"
   },
-  "homepage": "https://github.com/nepali-picker#readme",
+  "homepage": "https://kushalchg.github.io/nepali-picker/",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

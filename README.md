@@ -1,6 +1,6 @@
 # react-native-nepali-picker
 
- ![android](https://img.shields.io/badge/android-000.svg?style=flat-square&logo=android&labelColor=f2f2f2&logoColor=34A853)&nbsp;&nbsp;![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-000.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)&nbsp;&nbsp;![ios](https://img.shields.io/badge/IOS-000.svg?style=flat-square&logo=apple&labelColor=fff&logoColor=000)
+ [![npm](https://img.shields.io/badge/npm-000.svg?style=flat-square&logo=npm&labelColor=f2f2f2&logoColor=CB3837)](https://www.npmjs.com/package/react-native-nepali-picker)&nbsp;&nbsp;[![android](https://img.shields.io/badge/android-000.svg?style=flat-square&logo=android&labelColor=f2f2f2&logoColor=34A853)](https://www.npmjs.com/package/react-native-nepali-picker)&nbsp;&nbsp;[![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-000.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)](https://www.npmjs.com/package/react-native-nepali-picker)&nbsp;&nbsp;[![ios](https://img.shields.io/badge/IOS-000.svg?style=flat-square&logo=apple&labelColor=fff&logoColor=000)](https://www.npmjs.com/package/react-native-nepali-picker)
 
 
 
