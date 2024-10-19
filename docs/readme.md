@@ -1,3 +1,6 @@
+
+![cover](https://raw.githubusercontent.com/Kushalchg/nepali-picker/refs/heads/main/assets/picker.png)
+
 # Installation
 ```sh
 
@@ -112,6 +115,8 @@ Color that represent your brand or organization. This color only applied to high
 | type | default | required |
 |-------|-------|-------|
 | "string"| "#2081b9"| no |
+
+![annotate](https://raw.githubusercontent.com/Kushalchg/nepali-picker/refs/heads/main/assets/picker_annotate.png)
 
 ### titleTextStyle
 Props that help you to apply custom style on date title of picker modal.

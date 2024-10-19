@@ -3,6 +3,9 @@
  ![android](https://img.shields.io/badge/android-000.svg?style=flat-square&logo=android&labelColor=f2f2f2&logoColor=34A853)&nbsp;&nbsp;![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-000.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)&nbsp;&nbsp;![ios](https://img.shields.io/badge/IOS-000.svg?style=flat-square&logo=apple&labelColor=fff&logoColor=000)
 
 
+
+![cover](https://raw.githubusercontent.com/Kushalchg/nepali-picker/refs/heads/main/assets/picker.png)
+
 As a Nepali-date picker it will help you on your `react native` project to integrate the Nepali date picker.Addition to that it also have functions for date conversion.
 
 ## Feature
@@ -128,6 +131,8 @@ Color that represent your brand or organization. This color only applied to high
 | "string"| "#2081b9"| no |
 
 
+
+![annotate](https://raw.githubusercontent.com/Kushalchg/nepali-picker/refs/heads/main/assets/picker_annotate.png)
 
 ### titleTextStyle
 Props that help you to apply custom style on date title of picker modal.
