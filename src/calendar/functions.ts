@@ -29,15 +29,16 @@ const AdToBs = (UserDate: string): string => {
   let nepaliYear: number = 2000;
   let nepaliMonth: number = 1;
   let nepaliDay: number = 1;
-  let DD = DateDifference;
+  //difference can calculate upto previous day so add 1 to get current day(Today)
+
+  let DD = DateDifference + 1;
 
   outerLoop: for (let year = 2000; year < 2100; year++) {
     for (let month = 1; month <= 12; month++) {
       if (DD <= bs[year][month]) {
-        //difference can calculate upto previous day so add 1 to get current day(Today)
         nepaliYear = year;
         nepaliMonth = month;
-        nepaliDay = DD + 1;
+        nepaliDay = DD;
         break outerLoop;
       } else {
         DD -= bs[year][month];
