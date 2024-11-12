@@ -174,6 +174,9 @@ Convert a date from Anno Domini (AD) to Bikram Sambat (BS):
 Function return the BS date in string type with format `yyyy-mm-dd`
 
 >[!Note]
+> Please update to version `1.0.1` at least, which fixes the date conversion bug (sometime if the converted BS date is first day of month , It increases the previous month last day by 1).
+
+>[!Note]
 > Supported date range is `1943-04-14` AD to `2042-04-14` AD.
 
 #### **uses**
