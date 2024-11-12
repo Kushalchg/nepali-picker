@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  type TextStyle,
 } from 'react-native';
 import {
   bs,
@@ -22,19 +21,7 @@ import { NepaliToday } from './calendar/functions';
 import { ChevronIcon } from './assets/Icons';
 import DateSyncLogo from './assets/DateSync';
 import Triangle from './assets/Triangle';
-
-interface CalendarPickerPoros {
-  visible: boolean;
-  children?: ReactNode;
-  onClose: () => void;
-  theme?: 'dark' | 'light';
-  onDateSelect: (date: string) => void;
-  language?: 'en' | 'np';
-  brandColor?: string;
-  dayTextStyle?: TextStyle;
-  weekTextStyle?: TextStyle;
-  titleTextStyle?: TextStyle;
-}
+import type { CalendarPickerProps } from './types';
 
 const CalendarPicker = ({
   visible,
@@ -56,7 +43,7 @@ const CalendarPicker = ({
     fontSize: 15,
     fontWeight: '600',
   },
-}: CalendarPickerPoros) => {
+}: CalendarPickerProps) => {
   const TodayNepaliDate = NepaliToday();
   const cYear = parseInt(TodayNepaliDate.split('-')[0], 10);
   const cMonth = parseInt(TodayNepaliDate.split('-')[1], 10);

@@ -3,8 +3,8 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import {
   AdToBs,
   BsToAd,
-  CalendarPicker,
   NepaliToday,
+  CalendarPicker,
 } from 'react-native-nepali-picker';
 
 export default function App() {

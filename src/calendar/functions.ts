@@ -1,4 +1,5 @@
 import { bs } from './config';
+import type { DateString } from '../types';
 
 const formatDate = (date: Date) => {
   const year = date.getFullYear();
@@ -13,7 +14,7 @@ const FindDateDifference = (date1: number, date2: number) => {
   return diffInDays;
 };
 
-const AdToBs = (UserDate: string): string => {
+const AdToBs = (UserDate: DateString): DateString => {
   const ReferenceDate = new Date('1943-04-14').getTime();
   const UserTimeDate = new Date(UserDate).getTime();
 
@@ -51,7 +52,7 @@ const AdToBs = (UserDate: string): string => {
   ).padStart(2, '0')}`;
 };
 
-const NepaliToday = (): string => {
+const NepaliToday = (): DateString => {
   const ReferenceDate = new Date('1943-04-14').getTime();
   const TodayDate = Date.now();
   const date = new Date(TodayDate);
@@ -85,7 +86,7 @@ const NepaliToday = (): string => {
   //add the difference between reference and today date to nepali reference date and find new today nepali date
 };
 
-const BsToAd = (userDate: string): string => {
+const BsToAd = (userDate: DateString): DateString => {
   try {
     const dateArray = userDate.split('-');
     let dateDifference = 0;
