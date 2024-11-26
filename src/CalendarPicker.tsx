@@ -17,7 +17,7 @@ import {
   monthsInNepali,
 } from './calendar/config';
 import { calcFirstDay, isToday } from './calendar/settings';
-import { NepaliToday } from './calendar/functions';
+import { NepaliToday, validateDate } from './calendar/functions';
 import { ChevronIcon } from './assets/Icons';
 import DateSyncLogo from './assets/DateSync';
 import Triangle from './assets/Triangle';
@@ -29,8 +29,8 @@ const CalendarPicker = ({
   theme = 'light',
   onDateSelect,
   language = 'np',
+  initialDate = NepaliToday(),
   brandColor = '#2081b9',
-
   titleTextStyle = {
     fontSize: 20,
     fontWeight: 'bold',
@@ -44,7 +44,9 @@ const CalendarPicker = ({
     fontWeight: '600',
   },
 }: CalendarPickerProps) => {
-  const TodayNepaliDate = NepaliToday();
+  const value = validateDate(initialDate);
+  console.log('validate value is ', value);
+  const TodayNepaliDate = initialDate;
   const cYear = parseInt(TodayNepaliDate.split('-')[0], 10);
   const cMonth = parseInt(TodayNepaliDate.split('-')[1], 10);
   const cDay = parseInt(TodayNepaliDate.split('-')[2], 10);
@@ -120,8 +122,48 @@ const CalendarPicker = ({
   const dark = theme === 'dark';
   const weekDays = language === 'en' ? daysInEnglish : daysInNepali;
 
+  if (value !== true) {
+    return (
+      <Modal visible={visible} onRequestClose={onClose} transparent={true}>
+        <Pressable style={styles.outerPressable} onPress={onClose}>
+          <Pressable onPress={() => {}} style={styles.innerPressable}>
+            <View
+              style={{
+                ...styles.innerView,
+                minHeight: '40%',
+                minWidth: '90%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: dark ? '#383838' : '#ffffff',
+              }}
+            >
+              <Text
+                style={{
+                  color: dark ? 'white' : 'black',
+                  fontWeight: '600',
+                  paddingHorizontal: 10,
+                  paddingVertical: 10,
+                }}
+              >
+                Unsupported date range on initialDate
+              </Text>
+              <Text
+                style={{
+                  color: dark ? 'white' : 'black',
+                  paddingHorizontal: 10,
+                }}
+              >
+                {value}
+              </Text>
+            </View>
+          </Pressable>
+        </Pressable>
+      </Modal>
+    );
+  }
+
   return (
-    <Modal visible={visible} onRequestClose={onClose}>
+    <Modal visible={visible} onRequestClose={onClose} transparent={true}>
       <Pressable style={styles.outerPressable} onPress={onClose}>
         <Pressable onPress={() => {}} style={styles.innerPressable}>
           <View
@@ -311,7 +353,11 @@ const CalendarPicker = ({
           </View>
         </Pressable>
       </Pressable>
-      <Modal visible={yearModal} onRequestClose={closeYearView}>
+      <Modal
+        visible={yearModal}
+        onRequestClose={closeYearView}
+        transparent={true}
+      >
         <Pressable
           style={styles.outerPressable}
           onPress={() => closeYearView()}

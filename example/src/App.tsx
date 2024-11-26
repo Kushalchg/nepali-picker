@@ -22,6 +22,7 @@ export default function App() {
         <CalendarPicker
           visible={visible}
           onClose={() => setVisible(false)}
+          initialDate="2023-11-11"
           onDateSelect={onDateSelect}
           language="np"
           theme="dark"
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: '#d2a3ff',
     justifyContent: 'center',
   },
 

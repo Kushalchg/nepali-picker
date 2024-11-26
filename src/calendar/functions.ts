@@ -8,6 +8,20 @@ const formatDate = (date: Date) => {
   return `${year}-${month}-${day}`;
 };
 
+export const validateDate = (date: string): string | boolean => {
+  const dateArray = date.split('-');
+  const [userYear, userMonth, _] = dateArray.map(Number);
+  if (dateArray.length !== 3) {
+    return 'Invalid date format';
+  } else if (userYear < 2000 || userYear >= 2100) {
+    return 'Year Range is 2000 to 2099';
+  } else if (userMonth < 1 || userMonth > 12) {
+    return 'Month Range is 1 to 12';
+  } else {
+    return true;
+  }
+};
+
 const FindDateDifference = (date1: number, date2: number) => {
   const diffInMs = date2 - date1;
   const diffInDays = diffInMs / (1000 * 60 * 60 * 24);

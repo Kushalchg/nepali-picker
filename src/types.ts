@@ -12,5 +12,6 @@ export interface CalendarPickerProps {
   dayTextStyle?: TextStyle;
   weekTextStyle?: TextStyle;
   titleTextStyle?: TextStyle;
+  initialDate?: DateString;
 }
 export type DateString = string;
