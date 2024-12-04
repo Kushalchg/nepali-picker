@@ -173,7 +173,10 @@ const CalendarPicker = ({
             }}
           >
             <Text
-              style={{ color: dark ? 'white' : 'black', paddingHorizontal: 10 }}
+              style={{
+                color: dark ? 'white' : 'black',
+                paddingHorizontal: 10,
+              }}
             >
               {language === 'np' ? 'आजको मिति ' : "Today's Date"}
             </Text>
