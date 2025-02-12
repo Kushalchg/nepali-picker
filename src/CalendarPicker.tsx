@@ -46,7 +46,7 @@ const CalendarPicker = ({
 }: CalendarPickerProps) => {
   const value = validateDate(initialDate);
   console.log('validate value is ', value);
-  const TodayNepaliDate = initialDate;
+  const [TodayNepaliDate, setTodayNepaliDate] = useState(initialDate);
   const cYear = parseInt(TodayNepaliDate.split('-')[0], 10);
   const cMonth = parseInt(TodayNepaliDate.split('-')[1], 10);
   const cDay = parseInt(TodayNepaliDate.split('-')[2], 10);
@@ -59,6 +59,7 @@ const CalendarPicker = ({
   const [yearModal, setYearModal] = useState<boolean>(false);
   const handleDateClick = (day: number) => {
     const date = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    setTodayNepaliDate(date);
     onDateSelect(date);
     onClose();
   };
