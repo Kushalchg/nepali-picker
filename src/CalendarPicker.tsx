@@ -45,7 +45,7 @@ const CalendarPicker = ({
   },
 }: CalendarPickerProps) => {
   const value = validateDate(initialDate);
-  console.log('validate value is ', value);
+  console.log('the initial date is ', initialDate);
   const [TodayNepaliDate, setTodayNepaliDate] = useState(initialDate);
   const cYear = parseInt(TodayNepaliDate.split('-')[0], 10);
   const cMonth = parseInt(TodayNepaliDate.split('-')[1], 10);
@@ -57,6 +57,12 @@ const CalendarPicker = ({
   const [calendarDate, setCalendarDate] = useState<(number | null)[]>([]);
 
   const [yearModal, setYearModal] = useState<boolean>(false);
+
+  const syncToday = () => {
+    setMonth(cMonth);
+    setYear(cYear);
+  };
+
   const handleDateClick = (day: number) => {
     const date = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     setTodayNepaliDate(date);
@@ -64,6 +70,11 @@ const CalendarPicker = ({
     onClose();
   };
 
+  useEffect(() => {
+    setTodayNepaliDate(initialDate);
+  }, [initialDate]);
+
+  //Handle Next Month Click
   const handleNextClick = () => {
     if (month === 12) {
       if (year < 2099) {
@@ -74,6 +85,8 @@ const CalendarPicker = ({
       setMonth((prev) => prev + 1);
     }
   };
+
+  //Handle Previous Month Click
   const handlePreviousClick = () => {
     if (month === 1) {
       if (year > 2000) {
@@ -109,12 +122,7 @@ const CalendarPicker = ({
       }
     });
     setCalendarDate(calendarCells);
-  }, [year, month]);
-
-  const syncToday = () => {
-    setMonth(cMonth);
-    setYear(cYear);
-  };
+  }, [year, month, initialDate]);
 
   const handleYearClick = (y: number) => {
     setYear(y);

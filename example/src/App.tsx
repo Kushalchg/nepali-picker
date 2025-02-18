@@ -22,10 +22,10 @@ export default function App() {
         <CalendarPicker
           visible={visible}
           onClose={() => setVisible(false)}
-          initialDate="2023-11-11"
+          initialDate="2011-1-11"
           onDateSelect={onDateSelect}
           language="np"
-          theme="dark"
+          theme="light"
 
           //dayTextStyle={{ fontSize: 14, }}
           //weekTextStyle={{ fontSize: 15, }}
@@ -41,7 +41,7 @@ export default function App() {
         <Text>{AdToBs('2000-09-21')}</Text>
 
         {/* convert date on BS to AD equivalent date: required  format is (YYYY-MM-DD)  */}
-        <Text>{BsToAd('2056-01-01')}</Text>
+        <Text>{BsToAd('2081-11-06')}</Text>
         {/* This function will return the current nepali date: return value is string and format is (YYYY-MM-DD) */}
         <Text>{NepaliToday()}</Text>
       </View>
@@ -53,20 +53,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#d2a3ff',
+    backgroundColor: '#fff3f3',
     justifyContent: 'center',
   },
 
   button: {
-    paddingHorizontal: 10,
-    paddingVertical: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     borderRadius: 5,
-    backgroundColor: '#fe6684',
+    backgroundColor: '#4400ff',
     marginBottom: 10,
   },
 
   text: {
-    color: '#000',
+    color: '#fff',
     fontSize: 20,
   },
   box: {
