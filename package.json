@@ -1,10 +1,11 @@
 {
   "name": "react-native-nepali-picker",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Minimalist and modern Nepali-date picker with customization.🌟",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
+  "types":"./lib/typescript/module/src/index.d.ts",
   "exports": {
     ".": {
       "import": {

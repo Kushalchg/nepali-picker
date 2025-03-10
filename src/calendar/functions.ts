@@ -114,9 +114,11 @@ const BsToAd = (userDate: DateString): DateString => {
     if (userMonth < 1 || userMonth > 12) {
       throw new Error('Month Range is 1 to 12');
     }
+
     // if (userMonth < 1 || userMonth > 31) {
     //   throw new Error('Month out of supported range');
     // }
+
     for (let year = 2000; year < userYear; year++) {
       for (let month = 1; month <= 12; month++) {
         dateDifference += bs[year][month];
