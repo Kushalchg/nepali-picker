@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import {
   AdToBs,
   BsToAd,
-  NepaliToday,
   CalendarPicker,
+  NepaliToday,
 } from 'react-native-nepali-picker';
 
 export default function App() {

@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import {
-  View,
-  Text,
   Modal,
   Pressable,
-  StyleSheet,
-  TouchableOpacity,
   ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
+import DateSyncLogo from './assets/DateSync';
+import { ChevronIcon } from './assets/Icons';
+import Triangle from './assets/Triangle';
 import {
   bs,
   daysInEnglish,
@@ -16,11 +19,8 @@ import {
   monthsInEnglish,
   monthsInNepali,
 } from './calendar/config';
-import { calcFirstDay, isToday } from './calendar/settings';
 import { NepaliToday, validateDate } from './calendar/functions';
-import { ChevronIcon } from './assets/Icons';
-import DateSyncLogo from './assets/DateSync';
-import Triangle from './assets/Triangle';
+import { calcFirstDay, isToday } from './calendar/settings';
 import type { CalendarPickerProps } from './types';
 
 const CalendarPicker = ({
