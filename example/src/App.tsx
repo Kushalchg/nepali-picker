@@ -22,28 +22,31 @@ export default function App() {
         <CalendarPicker
           visible={visible}
           onClose={() => setVisible(false)}
-          initialDate="2011-1-11"
           onDateSelect={onDateSelect}
-          language="np"
-          theme="light"
-
-          //dayTextStyle={{ fontSize: 14, }}
-          //weekTextStyle={{ fontSize: 15, }}
-          //titleTextStyle={{ fontSize: 20, }}
+          language="en"
+          theme="dark"
+        //  dayTextStyle={{ fontSize: 14, }}
+        //  weekTextStyle={{ fontSize: 15, }}
+        //  titleTextStyle={{ fontSize: 20, }}
         />
       </View>
       <TouchableOpacity style={styles.button} onPress={() => setVisible(true)}>
         <Text style={styles.text}>Open Calendar</Text>
       </TouchableOpacity>
       <View>
-        <Text>{date}</Text>
         {/* convert date on AD to BS equivalent date: required format is (YYYY-MM-DD) */}
-        <Text>{AdToBs('2000-09-21')}</Text>
-
+        <Text>First Random Date{"  "} {AdToBs('2000-09-21')}</Text>
         {/* convert date on BS to AD equivalent date: required  format is (YYYY-MM-DD)  */}
-        <Text>{BsToAd('2081-11-06')}</Text>
+        <Text>Second Random Date {"  "} {BsToAd('2081-11-06')}</Text>
+        {/* If there is data selected then convert that date*/}
+        {date ? (
+          <>
+            <Text>Your Selected Date(AD){" "} {BsToAd(date)}</Text>
+            <Text>Your Selected Date(BS){" "} {date}</Text>
+          </>
+        ) : null}
         {/* This function will return the current nepali date: return value is string and format is (YYYY-MM-DD) */}
-        <Text>{NepaliToday()}</Text>
+        <Text>Today Nepali date: {" "}{NepaliToday()}</Text>
       </View>
     </View>
   );

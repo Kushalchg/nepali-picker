@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import {
   Modal,
   Pressable,
@@ -20,7 +20,8 @@ import {
   monthsInNepali,
 } from './calendar/config';
 import { NepaliToday, validateDate } from './calendar/functions';
-import { calcFirstDay, isToday } from './calendar/settings';
+import { calcFirstDay } from './calendar/settings';
+import DayCell from './DayCell'
 import type { CalendarPickerProps } from './types';
 
 const CalendarPicker = ({
@@ -44,17 +45,16 @@ const CalendarPicker = ({
     fontWeight: '600',
   },
 }: CalendarPickerProps) => {
+  const yearModelScrollRef = useRef<ScrollView>(null)
+
   const value = validateDate(initialDate);
-  console.log('the initial date is ', initialDate);
   const [TodayNepaliDate, setTodayNepaliDate] = useState(initialDate);
   const cYear = parseInt(TodayNepaliDate.split('-')[0], 10);
   const cMonth = parseInt(TodayNepaliDate.split('-')[1], 10);
   const cDay = parseInt(TodayNepaliDate.split('-')[2], 10);
 
-  const [firstDayOfMonth, setFirstDayOfMonth] = useState<number>(0);
   const [month, setMonth] = useState<number>(cMonth);
   const [year, setYear] = useState<number>(cYear);
-  const [calendarDate, setCalendarDate] = useState<(number | null)[]>([]);
 
   const [yearModal, setYearModal] = useState<boolean>(false);
 
@@ -63,18 +63,27 @@ const CalendarPicker = ({
     setYear(cYear);
   };
 
-  const handleDateClick = (day: number) => {
+  const handleDateClick = useCallback((day: number) => {
     const date = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     setTodayNepaliDate(date);
     onDateSelect(date);
     onClose();
-  };
+  }, [year, month, onDateSelect, onClose]);
 
+
+  // Set the user selected date is as NepaliDate (initially it will be always
+  // TodayNepaliDate)
   useEffect(() => {
     setTodayNepaliDate(initialDate);
   }, [initialDate]);
 
-  //Handle Next Month Click
+  // It will calculate the current date number
+  const todayDay = useMemo(() => {
+    const [y, m, d] = TodayNepaliDate.split('-').map(Number);
+    return y === year && m === month ? d : null;
+  }, [TodayNepaliDate, year, month]);
+
+  //Handle Next Month button Click
   const handleNextClick = () => {
     if (month === 12) {
       if (year < 2099) {
@@ -86,7 +95,7 @@ const CalendarPicker = ({
     }
   };
 
-  //Handle Previous Month Click
+  //Handle Previous Month button Click
   const handlePreviousClick = () => {
     if (month === 1) {
       if (year > 2000) {
@@ -98,44 +107,51 @@ const CalendarPicker = ({
     }
   };
 
-  const openYearView = () => {
+  //open the model which shows the list of years(2000-2099)BS
+  const openYearView = async () => {
     setYearModal(true);
+
+    //wait for model to open completely before to scroll down
+    await new Promise((resolve) => setTimeout(resolve, 10))
+    // After model is opened, need ot scrolldown to that year
+    yearModelScrollRef.current?.scrollTo({
+      y: 100,
+      animated: true
+    })
   };
 
+  //close the year view model
   const closeYearView = () => {
     setYearModal(false);
   };
 
-  useEffect(() => {
-    // calculate First Day Of Month (FDOM) and Days In Month(DIM)
+
+  // Calculating the number of cells on that month and year(Max it can have 42 cells)
+  // If the cells don't have the date, it will be null otherwise it will contain the actual
+  // date number (1,2,3...upto 32)
+  const calendarDate = useMemo(() => {
     const FDOM = calcFirstDay(year, month);
     const DIM = bs[year][month];
-    setFirstDayOfMonth(FDOM);
-
-    // array which contain 42 cells and it only fill the date with number if the date is present otherwise it fill cells with null.
-    const calendarCells = Array.from({ length: 42 }, (_, index) => {
-      const dayNumber = index - FDOM + 1;
-      if (dayNumber > 0 && dayNumber <= DIM) {
-        return dayNumber;
-      } else {
-        return null;
-      }
-    });
-    setCalendarDate(calendarCells);
-  }, [year, month, initialDate]);
+    return Array.from({ length: 42 }, (_, index) => {
+      const dayNum = index - FDOM + 1
+      return dayNum > 0 && dayNum <= DIM ? dayNum : null
+    })
+  }, [year, month])
 
   const handleYearClick = (y: number) => {
     setYear(y);
     closeYearView();
   };
+
   const dark = theme === 'dark';
   const weekDays = language === 'en' ? daysInEnglish : daysInNepali;
 
+  // If the user prvided (initial value ) is not in correct format i.e (YYYY-MM-DD)
   if (value !== true) {
     return (
       <Modal visible={visible} onRequestClose={onClose} transparent={true}>
         <Pressable style={styles.outerPressable} onPress={onClose}>
-          <Pressable onPress={() => {}} style={styles.innerPressable}>
+          <Pressable onPress={() => { }} style={styles.innerPressable}>
             <View
               style={{
                 ...styles.innerView,
@@ -174,7 +190,7 @@ const CalendarPicker = ({
   return (
     <Modal visible={visible} onRequestClose={onClose} transparent={true}>
       <Pressable style={styles.outerPressable} onPress={onClose}>
-        <Pressable onPress={() => {}} style={styles.innerPressable}>
+        <Pressable onPress={() => { }} style={styles.innerPressable}>
           <View
             style={{
               ...styles.innerView,
@@ -187,7 +203,7 @@ const CalendarPicker = ({
                 paddingHorizontal: 10,
               }}
             >
-              {language === 'np' ? 'आजको मिति ' : "Today's Date"}
+              {language === 'np' ? 'आजको मिति ' : "Selected Date"}
             </Text>
             {/* Today date in large fonts on click sync the calenar with today date */}
             <View
@@ -304,67 +320,29 @@ const CalendarPicker = ({
               </View>
 
               {/* for actual data fo calenadr which has the day in them */}
+
               <View style={styles.datesContainer}>
-                {calendarDate.map((dayItem, index) => {
-                  return (
-                    <TouchableOpacity
-                      style={styles.dateItem}
-                      key={index}
-                      onPress={
-                        //execute on day item press, Only execute when dayItem is not null
-                        dayItem ? () => handleDateClick(dayItem) : () => {}
-                      }
-                    >
-                      {dayItem ? (
-                        <View
-                          style={{
-                            paddingHorizontal: 6,
-                            paddingVertical: 3,
-                            borderRadius: 999,
-                            //check if the date is today or not and apply conditional styling.
-                            backgroundColor: isToday(
-                              TodayNepaliDate,
-                              index,
-                              year,
-                              month,
-                              firstDayOfMonth
-                            )
-                              ? brandColor
-                              : dark
-                                ? '#383838'
-                                : '#fff',
-                          }}
-                        >
-                          <Text
-                            style={{
-                              ...dayTextStyle,
-                              color: isToday(
-                                TodayNepaliDate,
-                                index,
-                                year,
-                                month,
-                                firstDayOfMonth
-                              )
-                                ? '#fff'
-                                : dark
-                                  ? 'white'
-                                  : 'black',
-                            }}
-                          >
-                            {language === 'np'
-                              ? getNepaliNumber(dayItem)
-                              : dayItem}
-                          </Text>
-                        </View>
-                      ) : null}
-                    </TouchableOpacity>
-                  );
-                })}
+                {calendarDate.map((day, index) => (
+                  <DayCell
+                    key={index}
+                    day={day}
+                    isToday={day !== null && day === todayDay}
+                    onPress={handleDateClick}
+                    dark={dark}
+                    brandColor={brandColor}
+                    language={language}
+                    dayTextStyle={dayTextStyle}
+                  />
+                ))}
               </View>
+
             </View>
           </View>
         </Pressable>
       </Pressable>
+
+      {/* the year modal which will show the list of year (in scrollview) */}
+      {/* NOTE: Need to change in flatlist for performance but need to fix the responsive  */}
       <Modal
         visible={yearModal}
         onRequestClose={closeYearView}
@@ -374,7 +352,7 @@ const CalendarPicker = ({
           style={styles.outerPressable}
           onPress={() => closeYearView()}
         >
-          <Pressable style={styles.YearInnerPressable} onPress={() => {}}>
+          <Pressable style={styles.YearInnerPressable} onPress={() => { }}>
             <View
               style={{
                 ...styles.InnerYearView,
@@ -383,6 +361,7 @@ const CalendarPicker = ({
             >
               <ScrollView
                 showsVerticalScrollIndicator={false}
+                ref={yearModelScrollRef}
                 contentContainerStyle={{
                   display: 'flex',
                   paddingVertical: 10,
@@ -466,11 +445,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 18,
   },
-  //WeekText: {
-  //  fontWeight: 'bold',
-  //  fontSize: 14,
-  //  color: 'black',
-  //},
   datesContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -482,10 +456,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
   },
-  //DayText: {
-  //  fontSize: 14,
-  //  fontWeight: '600',
-  //},
   CButton: {
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -499,10 +469,7 @@ const styles = StyleSheet.create({
   outerDateConainer: {
     paddingHorizontal: 3,
   },
-  //TitleText: {
-  //  fontSize: 20,
-  //  fontWeight: 'bold',
-  //},
+
   // for year view modal
   YearInnerPressable: {
     justifyContent: 'center',
