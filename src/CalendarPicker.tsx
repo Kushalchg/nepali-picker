@@ -151,7 +151,7 @@ const CalendarPicker = ({
     return (
       <Modal visible={visible} onRequestClose={onClose} transparent={true}>
         <Pressable style={styles.outerPressable} onPress={onClose}>
-          <Pressable onPress={() => { }} style={styles.innerPressable}>
+          <Pressable onPress={() => {}} style={styles.innerPressable}>
             <View
               style={{
                 ...styles.innerView,
