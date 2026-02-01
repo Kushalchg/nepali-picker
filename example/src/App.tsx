@@ -23,8 +23,10 @@ export default function App() {
           visible={visible}
           onClose={() => setVisible(false)}
           onDateSelect={onDateSelect}
-          language="en"
+          language="np"
           theme="dark"
+          minDate='2024-01-13'
+          maxDate='2084-11-30'
         //  dayTextStyle={{ fontSize: 14, }}
         //  weekTextStyle={{ fontSize: 15, }}
         //  titleTextStyle={{ fontSize: 20, }}

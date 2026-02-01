@@ -1,5 +1,6 @@
 import { bs } from './config';
 import type { DateString } from '../types';
+import { NEPALI_MAX_YEAR, NEPALI_MIN_YEAR } from './settings';
 
 const formatDate = (date: Date) => {
   const year = date.getFullYear();
@@ -8,18 +9,59 @@ const formatDate = (date: Date) => {
   return `${year}-${month}-${day}`;
 };
 
-export const validateDate = (date: string): string | boolean => {
-  const dateArray = date.split('-');
-  const [userYear, userMonth, _] = dateArray.map(Number);
-  if (dateArray.length !== 3) {
-    return 'Invalid date format';
-  } else if (userYear < 2000 || userYear >= 2100) {
-    return 'Year Range is 2000 to 2099';
-  } else if (userMonth < 1 || userMonth > 12) {
-    return 'Month Range is 1 to 12';
-  } else {
-    return true;
+
+// Add padart 0 if the date is day or months are denoted by single number
+const normalizeNepaliDate = (date: string): string | null => {
+  const parts = date.split('-');
+  if (parts.length !== 3) return null;
+
+  const [y, m, d] = parts;
+
+  if (!/^\d{4}$/.test(y)) return null;
+  if (!/^\d{1,2}$/.test(m)) return null;
+  if (!/^\d{1,2}$/.test(d)) return null;
+
+  return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+};
+
+
+export const validateDate = (uDate: string): true | string => {
+
+  const normalized = normalizeNepaliDate(uDate)
+
+  if (!normalized) {
+    return 'Date format must be YYYY-MM-DD';
   }
+
+  // format check
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(normalized)) {
+    return 'Date format must be YYYY-MM-DD';
+  }
+  const [yearStr, monthStr, dayStr] = normalized.split('-');
+  const year = Number(yearStr);
+  const month = Number(monthStr);
+  const day = Number(dayStr);
+
+  //  Year range
+  if (year < NEPALI_MIN_YEAR || year > NEPALI_MAX_YEAR) {
+    return 'Year range must be between 2000 and 2099 (BS)';
+  }
+  // Month range
+  if (month < 1 || month > 12) {
+    return 'Month range must be between 01 and 12';
+  }
+  //Day range using BS data
+  const daysInMonth = bs?.[year]?.[month];
+
+  if (!daysInMonth) {
+    return 'Invalid Nepali calendar data';
+  }
+
+  if (day < 1 || day > daysInMonth) {
+    return `Day range for ${year}-${monthStr} is 01 to ${daysInMonth}`;
+  }
+
+  return true;
 };
 
 const FindDateDifference = (date1: number, date2: number) => {
@@ -41,14 +83,14 @@ const AdToBs = (UserDate: DateString): DateString => {
 
   // number of days from that reference date
   const DateDifference = FindDateDifference(ReferenceDate, UserTimeDate);
-  let nepaliYear: number = 2000;
+  let nepaliYear: number = NEPALI_MIN_YEAR;
   let nepaliMonth: number = 1;
   let nepaliDay: number = 1;
   //difference can calculate upto previous day so add 1 to get current day(Today)
 
   let DD = DateDifference + 1;
 
-  outerLoop: for (let year = 2000; year < 2100; year++) {
+  outerLoop: for (let year = NEPALI_MIN_YEAR; year <= NEPALI_MAX_YEAR; year++) {
     for (let month = 1; month <= 12; month++) {
       if (DD <= bs[year][month]) {
         nepaliYear = year;
@@ -76,12 +118,12 @@ const NepaliToday = (): DateString => {
     new Date(formatDate(date)).getTime()
   );
 
-  let nepaliYear: number = 2000;
+  let nepaliYear: number = NEPALI_MIN_YEAR;
   let nepaliMonth: number = 1;
   let nepaliDay: number = 1;
   //difference can calculate upto previous day so add 1 to get current day(Today)
   let DD = DateDifference + 1;
-  outerLoop: for (let year = 2000; year < 2100; year++) {
+  outerLoop: for (let year = NEPALI_MIN_YEAR; year <= NEPALI_MAX_YEAR; year++) {
     for (let month = 1; month <= 12; month++) {
       if (DD <= bs[year][month]) {
         nepaliYear = year;
@@ -108,7 +150,7 @@ const BsToAd = (userDate: DateString): DateString => {
       throw new Error('Invalid date format');
     }
     const [userYear, userMonth, userDay] = dateArray.map(Number);
-    if (userYear < 2000 || userYear >= 2100) {
+    if (userYear < NEPALI_MIN_YEAR || userYear > NEPALI_MAX_YEAR) {
       throw new Error('Year Range is 2000 to 2099');
     }
     if (userMonth < 1 || userMonth > 12) {
@@ -119,7 +161,7 @@ const BsToAd = (userDate: DateString): DateString => {
     //   throw new Error('Month out of supported range');
     // }
 
-    for (let year = 2000; year < userYear; year++) {
+    for (let year = NEPALI_MIN_YEAR; year < userYear; year++) {
       for (let month = 1; month <= 12; month++) {
         dateDifference += bs[year][month];
       }

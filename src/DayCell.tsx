@@ -4,23 +4,25 @@ import { getNepaliNumber } from './calendar/config';
 
 type DayCellProps = {
   day: number | null;
-  isToday: boolean;
+  isSelectedDay: boolean;
   onPress: (day: number) => void;
   dark: boolean;
   brandColor: string;
   language: 'np' | 'en';
   dayTextStyle?: any;
+  disabled: boolean;
 };
 
 const DayCell = React.memo(
   ({
     day,
-    isToday,
+    isSelectedDay,
     onPress,
     dark,
     brandColor,
     language,
     dayTextStyle,
+    disabled,
   }: DayCellProps) => {
     if (!day) {
       return <View style={{ width: '14.28%', paddingVertical: 10 }} />;
@@ -28,20 +30,21 @@ const DayCell = React.memo(
 
     return (
       <TouchableOpacity
-        onPress={() => onPress(day)}
-        style={{
+        onPress={() => !disabled && onPress(day)}
+        style={[{
           width: '14.28%',
           justifyContent: 'center',
           alignItems: 'center',
           paddingVertical: 10,
-        }}
+        },
+        disabled && { opacity: 0.35 }]}
       >
         <View
           style={{
             paddingHorizontal: 6,
             paddingVertical: 3,
             borderRadius: 999,
-            backgroundColor: isToday
+            backgroundColor: isSelectedDay
               ? brandColor
               : dark
                 ? '#383838'
@@ -52,7 +55,7 @@ const DayCell = React.memo(
             style={[
               dayTextStyle,
               {
-                color: isToday ? '#fff' : dark ? '#fff' : '#000',
+                color: isSelectedDay ? '#fff' : dark ? '#fff' : '#000',
               },
             ]}
           >

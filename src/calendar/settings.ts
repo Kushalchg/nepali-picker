@@ -1,5 +1,7 @@
 import { bs, leapYears } from './config';
 
+export const NEPALI_MIN_YEAR = 2000;
+export const NEPALI_MAX_YEAR = 2099;
 const calcFirstDay = (currentYear: number, currentMonth: number) => {
   let month = currentMonth;
   let year = currentYear;

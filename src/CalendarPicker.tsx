@@ -19,10 +19,11 @@ import {
   monthsInEnglish,
   monthsInNepali,
 } from './calendar/config';
-import { NepaliToday, validateDate } from './calendar/functions';
-import { calcFirstDay } from './calendar/settings';
+import { NepaliToday } from './calendar/functions';
+import { calcFirstDay, NEPALI_MAX_YEAR, NEPALI_MIN_YEAR } from './calendar/settings';
 import DayCell from './DayCell'
 import type { CalendarPickerProps } from './types';
+import { validateCalendarDates } from './calendar/validate';
 
 const CalendarPicker = ({
   visible,
@@ -30,7 +31,9 @@ const CalendarPicker = ({
   theme = 'light',
   onDateSelect,
   language = 'np',
-  initialDate = NepaliToday(),
+  date = NepaliToday(),
+  minDate = '2000-01-01',
+  maxDate = '2099-12-30',
   brandColor = '#2081b9',
   titleTextStyle = {
     fontSize: 20,
@@ -47,11 +50,12 @@ const CalendarPicker = ({
 }: CalendarPickerProps) => {
   const yearModelScrollRef = useRef<ScrollView>(null)
 
-  const value = validateDate(initialDate);
-  const [TodayNepaliDate, setTodayNepaliDate] = useState(initialDate);
-  const cYear = parseInt(TodayNepaliDate.split('-')[0], 10);
-  const cMonth = parseInt(TodayNepaliDate.split('-')[1], 10);
-  const cDay = parseInt(TodayNepaliDate.split('-')[2], 10);
+  const value = validateCalendarDates(date, minDate, maxDate);
+
+  const [userSelectedDate, setUserSelectedDate] = useState(date);
+  const cYear = parseInt(userSelectedDate.split('-')[0], 10);
+  const cMonth = parseInt(userSelectedDate.split('-')[1], 10);
+  const cDay = parseInt(userSelectedDate.split('-')[2], 10);
 
   const [month, setMonth] = useState<number>(cMonth);
   const [year, setYear] = useState<number>(cYear);
@@ -65,28 +69,40 @@ const CalendarPicker = ({
 
   const handleDateClick = useCallback((day: number) => {
     const date = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-    setTodayNepaliDate(date);
+    setUserSelectedDate(date);
     onDateSelect(date);
     onClose();
   }, [year, month, onDateSelect, onClose]);
 
+  //check weather the date is disabled or not?(with maximum and minimum date provided)
+  const isDateDisabled = useCallback((day: number) => {
+    const date = `${year}-${month
+      .toString()
+      .padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+
+    if (minDate && date < minDate) return true;
+    if (maxDate && date > maxDate) return true;
+
+    return false;
+
+  }, [year, month, minDate, maxDate])
 
   // Set the user selected date is as NepaliDate (initially it will be always
-  // TodayNepaliDate)
+  // current Nepali Date)
   useEffect(() => {
-    setTodayNepaliDate(initialDate);
-  }, [initialDate]);
+    setUserSelectedDate(date);
+  }, [date]);
 
   // It will calculate the current date number
-  const todayDay = useMemo(() => {
-    const [y, m, d] = TodayNepaliDate.split('-').map(Number);
+  const selectedDay = useMemo(() => {
+    const [y, m, d] = userSelectedDate.split('-').map(Number);
     return y === year && m === month ? d : null;
-  }, [TodayNepaliDate, year, month]);
+  }, [userSelectedDate, year, month]);
 
   //Handle Next Month button Click
   const handleNextClick = () => {
     if (month === 12) {
-      if (year < 2099) {
+      if (year < NEPALI_MAX_YEAR) {
         setYear((prev) => prev + 1);
         setMonth(1);
       }
@@ -98,7 +114,7 @@ const CalendarPicker = ({
   //Handle Previous Month button Click
   const handlePreviousClick = () => {
     if (month === 1) {
-      if (year > 2000) {
+      if (year > NEPALI_MIN_YEAR) {
         setYear((prev) => prev - 1);
         setMonth(12);
       }
@@ -120,7 +136,7 @@ const CalendarPicker = ({
     // we will take 4) column of buttons so,
     // approx Height = (year number(82 for 2082) * button height)/cloumn number
     // NOTE: This is approx just to make the  button  visible when model is opened.
-    const vHeight = (year - 2000) * 36 / 4
+    const vHeight = (year - NEPALI_MIN_YEAR) * 36 / 4
     yearModelScrollRef.current?.scrollTo({
       y: vHeight,
       animated: true
@@ -178,7 +194,7 @@ const CalendarPicker = ({
                   paddingVertical: 10,
                 }}
               >
-                Unsupported date range on initialDate
+                Unsupported date range on Provided Date
               </Text>
               <Text
                 style={{
@@ -211,7 +227,7 @@ const CalendarPicker = ({
                 paddingHorizontal: 10,
               }}
             >
-              {language === 'np' ? 'आजको मिति ' : "Selected Date"}
+              {language === 'np' ? 'तपाईंको मिति ' : "Selected Date"}
             </Text>
             {/* Today date in large fonts on click sync the calenar with today date */}
             <View
@@ -334,7 +350,8 @@ const CalendarPicker = ({
                   <DayCell
                     key={index}
                     day={day}
-                    isToday={day !== null && day === todayDay}
+                    isSelectedDay={day !== null && day === selectedDay}
+                    disabled={day !== null && isDateDisabled(day)}
                     onPress={handleDateClick}
                     dark={dark}
                     brandColor={brandColor}
@@ -384,7 +401,7 @@ const CalendarPicker = ({
                     return (
                       <TouchableOpacity
                         key={index}
-                        onPress={() => handleYearClick(index + 2000)}
+                        onPress={() => handleYearClick(index + NEPALI_MIN_YEAR)}
                         style={{
                           paddingHorizontal: 20,
                           paddingVertical: 6,
@@ -394,7 +411,7 @@ const CalendarPicker = ({
                           borderRadius: 20,
 
                           backgroundColor:
-                            index + 2000 === year ? brandColor : '',
+                            index + NEPALI_MIN_YEAR === year ? brandColor : '',
                           borderWidth: 0.4,
                         }}
                       >
@@ -402,7 +419,7 @@ const CalendarPicker = ({
                           style={{
                             fontWeight: '500',
                             color:
-                              index + 2000 === year
+                              index + NEPALI_MIN_YEAR === year
                                 ? 'white'
                                 : dark
                                   ? 'white'
@@ -410,8 +427,8 @@ const CalendarPicker = ({
                           }}
                         >
                           {language === 'np'
-                            ? getNepaliNumber(index + 2000)
-                            : index + 2000}
+                            ? getNepaliNumber(index + NEPALI_MIN_YEAR)
+                            : index + NEPALI_MIN_YEAR}
                         </Text>
                       </TouchableOpacity>
                     );
