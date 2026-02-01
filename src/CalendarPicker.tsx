@@ -114,10 +114,18 @@ const CalendarPicker = ({
     //wait for model to open completely before to scroll down
     await new Promise((resolve) => setTimeout(resolve, 10))
     // After model is opened, need ot scrolldown to that year
+    // Here we need to calculate (roughly) how much to scroll to keep the seelcted year in
+    // focus
+    // - For that  we take the height of the year button and one row contain around 3-5(
+    // we will take 4) column of buttons so,
+    // approx Height = (year number(82 for 2082) * button height)/cloumn number
+    // NOTE: This is approx just to make the  button  visible when model is opened.
+    const vHeight = (year - 2000) * 36 / 4
     yearModelScrollRef.current?.scrollTo({
-      y: 100,
+      y: vHeight,
       animated: true
     })
+
   };
 
   //close the year view model
@@ -151,7 +159,7 @@ const CalendarPicker = ({
     return (
       <Modal visible={visible} onRequestClose={onClose} transparent={true}>
         <Pressable style={styles.outerPressable} onPress={onClose}>
-          <Pressable onPress={() => {}} style={styles.innerPressable}>
+          <Pressable onPress={() => { }} style={styles.innerPressable}>
             <View
               style={{
                 ...styles.innerView,
