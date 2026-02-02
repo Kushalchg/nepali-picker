@@ -108,7 +108,7 @@ The string parameter is the selected  date in Nepali format.
 
 
 ### date
-Currently Selected date value, default to Today Nepali Date.
+Currently Selected date value, default to today's Nepali date.
 
 >[!Note]
 > Value should be within range i.e `(2000-01-01 to 2099-12-30)` or If minDate
@@ -117,15 +117,15 @@ Currently Selected date value, default to Today Nepali Date.
 
 | type | default | required |
 |-------|-------|-------|
-| string | Current Nepali Day| no|
-
+| string | Today's Nepali date| no|
 
 
 ### minDate
-Minimum Selectable date.You can provide the minimum selectable date within
-range.
+Minimum Selectable date.
+
 >[!Note]
 > Value should be within range i.e `(2000-01-01 to 2099-12-30)`,
+
 
 | type | default | required |
 |-------|-------|-------|
@@ -133,14 +133,14 @@ range.
 
 
 ### maxDate
-Maximum Selectable date.You can provide the maximum selectable date within
-range.
+Maximum Selectable date.
+
 >[!Note]
 > Value should be within range i.e `(2000-01-01 to 2099-12-30)`,
 
 | type | default | required |
 |-------|-------|-------|
-| string | 2000-01-01| no|
+| string | 2099-12-30| no|
 
 
 >[!> [!WARNING] ]

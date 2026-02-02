@@ -97,7 +97,7 @@ The string parameter is the selected  date in Nepali format.
 
 
 ### date
-Currently Selected date value, default to Today Nepali Date.
+Currently Selected date value, default to  today's Nepali date.
 
 >[!Note]
 > Value should be within range i.e `(2000-01-01 to 2099-12-30)` or If minDate
@@ -106,12 +106,11 @@ Currently Selected date value, default to Today Nepali Date.
 
 | type | default | required |
 |-------|-------|-------|
-| string | Current Nepali Day| no|
+| string | Today's Nepali date| no|
 
 
 ### minDate
-Minimum Selectable date.You can provide the minimum selectable date within
-range.
+Minimum Selectable date.
 
 >[!Note]
 > Value should be within range i.e `(2000-01-01 to 2099-12-30)`,
@@ -123,8 +122,7 @@ range.
 
 
 ### maxDate
-Maximum Selectable date.You can provide the maximum selectable date within
-range.
+Maximum Selectable date.
 
 >[!Note]
 > Value should be within range i.e `(2000-01-01 to 2099-12-30)`,
@@ -132,7 +130,7 @@ range.
 
 | type | default | required |
 |-------|-------|-------|
-| string | 2000-01-01| no|
+| string | 2099-12-30| no|
 
 
 ### theme
@@ -157,6 +155,7 @@ Color that represent your brand or organization. This color only applied to high
 
 > [!Note]
 > Provide the string of color in hex code.
+
 
 | type | default | required |
 |-------|-------|-------|
@@ -205,9 +204,14 @@ Props that help you to apply custom style on day text of picker modal.
         onDateSelect={onDateSelect}
         language="np"
         theme="dark"
-        //dayTextStyle={{ fontSize: 14, }}
-        //weekTextStyle={{ fontSize: 15, }}
-        //titleTextStyle={{ fontSize: 20, }}
+
+        //  date={date}
+        //  minDate='2081-01-13'
+        //  maxDate='2084-11-30'
+        //  dayTextStyle={{ fontSize: 14, }}
+        //  weekTextStyle={{ fontSize: 15, }}
+        //  titleTextStyle={{ fontSize: 20, }}
+        //  brandColor="#420420"
    />
 ```
 
