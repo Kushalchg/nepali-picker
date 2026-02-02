@@ -44,9 +44,15 @@ export default function App() {
           onDateSelect={onDateSelect}
           //these are optional
 
-          //language="np"
-          //theme="light"
-          //brandColor="#420420"
+          //  date={date}
+          //  minDate='2081-01-13'
+          //  maxDate='2084-11-30'
+          //  dayTextStyle={{ fontSize: 14, }}
+          //  weekTextStyle={{ fontSize: 15, }}
+          //  titleTextStyle={{ fontSize: 20, }}
+          //  language="np"
+          //  theme="light"
+          //  brandColor="#420420"
 
         />
       </View>
@@ -90,8 +96,48 @@ The string parameter is the selected  date in Nepali format.
 | (string)=>void | none | yes |
 
 
+### date
+Currently Selected date value, default to Today Nepali Date.
+
+>[!Note]
+> Value should be within range i.e `(2000-01-01 to 2099-12-30)` or If minDate
+> and maxDate is provided then date should be the date between that range,
+
+
+| type | default | required |
+|-------|-------|-------|
+| string | Current Nepali Day| no|
+
+
+### minDate
+Minimum Selectable date.You can provide the minimum selectable date within
+range.
+
+>[!Note]
+> Value should be within range i.e `(2000-01-01 to 2099-12-30)`,
+
+
+| type | default | required |
+|-------|-------|-------|
+| string | 2000-01-01| no|
+
+
+### maxDate
+Maximum Selectable date.You can provide the maximum selectable date within
+range.
+
+>[!Note]
+> Value should be within range i.e `(2000-01-01 to 2099-12-30)`,
+
+
+| type | default | required |
+|-------|-------|-------|
+| string | 2000-01-01| no|
+
+
 ### theme
 Preferred theme for picker modal.
+
 
 | type | default | required |
 |-------|-------|-------|
@@ -172,9 +218,6 @@ This package provides three main functions:
 ### 1) AdtoBs(date:string):string
 Convert a date from Anno Domini (AD) to Bikram Sambat (BS):
 Function return the BS date in string type with format `yyyy-mm-dd`
-
->[!Note]
-> Please update to version `1.0.1` at least, which fixes the date conversion bug (sometime if the converted BS date is first day of month , It increases the previous month last day by 1).
 
 >[!Note]
 > Supported date range is `1943-04-14` AD to `2042-04-14` AD.
@@ -300,11 +343,8 @@ If you noticed something that need improvement or have additional feature reques
 
 
 #### Social
-( *You will get instant response on Linkedin  than Email.* )
+( *You will get instant response on Linkedin than Email.* )
 
 [Linkedin](https://www.linkedin.com/in/kushal-chapagain-1aa66419a/)
 [Email](mailto:chapagainkushal74@gmail.com)
-
-
-
-
+[X](https://x.com/chapagainkushal)

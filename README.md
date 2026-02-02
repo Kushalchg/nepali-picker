@@ -25,8 +25,6 @@ npm install react-native-nepali-picker
 yarn add react-native-nepali-picker
 ```
 
-<!--Images here-->
-
 # Usage
 Example uses of `<CalendarPicker/>` component, which is the actual picker component. For more info
 
@@ -56,12 +54,17 @@ export default function App() {
           visible={visible}
           onClose={() => setVisible(false)}
           onDateSelect={onDateSelect}
+
           //these are optional
-
-          //language="np"
-          //theme="light"
-          //brandColor="#420420"
-
+          //  date={date}
+          //  minDate='2081-01-13'
+          //  maxDate='2084-11-30'
+          //  dayTextStyle={{ fontSize: 14, }}
+          //  weekTextStyle={{ fontSize: 15, }}
+          //  titleTextStyle={{ fontSize: 20, }}
+          //  language="np"
+          //  theme="light"
+          //  brandColor="#420420"
         />
       </View>
 
@@ -103,6 +106,45 @@ The string parameter is the selected  date in Nepali format.
 |-------|-------|-------|
 | (string)=>void | none | yes |
 
+
+### date
+Currently Selected date value, default to Today Nepali Date.
+
+>[!Note]
+> Value should be within range i.e `(2000-01-01 to 2099-12-30)` or If minDate
+> and maxDate is provided then date should be the date between that range,
+
+
+| type | default | required |
+|-------|-------|-------|
+| string | Current Nepali Day| no|
+
+
+
+### minDate
+Minimum Selectable date.You can provide the minimum selectable date within
+range.
+>[!Note]
+> Value should be within range i.e `(2000-01-01 to 2099-12-30)`,
+
+| type | default | required |
+|-------|-------|-------|
+| string | 2000-01-01| no|
+
+
+### maxDate
+Maximum Selectable date.You can provide the maximum selectable date within
+range.
+>[!Note]
+> Value should be within range i.e `(2000-01-01 to 2099-12-30)`,
+
+| type | default | required |
+|-------|-------|-------|
+| string | 2000-01-01| no|
+
+
+>[!> [!WARNING] ]
+> Remember the `minDate` must be less than or equals to `maxDate` value
 
 ### theme
 Preferred theme for picker modal.
@@ -152,6 +194,7 @@ Props that help you to apply custom style on week text of picker modal.
 >[!> [!WARNING]
 > Color of text can't be changed,it's explicitly defined according to the theme you choose default to `black`.]
 
+
 | type | default | required |
 |-------|-------|-------|
 |   TextStyle |{fontSize:15,fontWeight:'bold'  } | no |
@@ -162,6 +205,7 @@ Props that help you to apply custom style on day text of picker modal.
 
 >[!> [!WARNING]
 > Color of text can't be changed,it's explicitly defined according to the theme you choose default to `black`.]
+
 
 | type | default | required |
 |-------|-------|-------|
@@ -188,10 +232,6 @@ This package provides three main functions:
 Convert a date from Anno Domini (AD) to Bikram Sambat (BS):
 Function return the BS date in string type with format `yyyy-mm-dd`
 
-
->[!Note]
-> Please update to version `1.0.1` at least, which fixes the date conversion bug (sometime if the converted BS date is first day of month , It increases the previous month last day by 1).
-
 >[!Note]
 > Supported date range is `1943-04-14` AD to `2042-04-14` AD.
 
@@ -209,7 +249,7 @@ Convert date from Bikram Sambat (BS) to Anno Domini (AD).
 Function return the AD date in string type with format `yyyy-mm-dd`.
 
 >[!Note]
-> Supported date range is `2000-01-01` BS to `2099-01-01` BS.
+> Supported date range is `2000-01-01` BS to `2099-12-30` BS.
 
 
 #### **uses**
@@ -321,6 +361,7 @@ If you noticed something that need improvement or have additional feature reques
 
 [Linkedin](https://www.linkedin.com/in/kushal-chapagain-1aa66419a/)
 [Email](mailto:chapagainkushal74@gmail.com)
+[X](https://x.com/chapagainkushal)
 
 ## Contributing
 
